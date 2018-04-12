@@ -8,5 +8,6 @@ namespace WpfApp3
 {
     class Calculator
     {
+        //Тут будет код)))))
     }
 }
