@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid Height="322" Margin="0,0,0.489,0.043" VerticalAlignment="Bottom">
+        Title="MainWindow" Height="480" Width="640">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -23,10 +23,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <local:FractionForm Grid.Row="1" Grid.Column="1"/>
-        <local:FractionForm Grid.Row="1" Grid.Column="3"/>
+        <local:FractionForm x:Name="Fraction1" Grid.Row="1" Grid.Column="1"/>
 
-        <Button x:Name="Reset" Grid.Row="2" Grid.Column="0" Content="Reset" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="Reset" Grid.Row="2" Grid.Column="0" Content="Reset" FontSize="16" FontWeight="Bold" Click="Reset_Click"/>
         <Button x:Name="Cancel" Grid.Row="2" Grid.Column="1" Content="Cancel" FontSize="16" FontWeight="Bold"/>
         <Button x:Name="Plus" Grid.Row="3" Grid.Column="0" Content="+" FontSize="16" FontWeight="Bold"/>
         <Button x:Name="Minus" Grid.Row="4" Grid.Column="0" Content="-" FontSize="16" FontWeight="Bold"/>
@@ -37,14 +36,14 @@
         <Button x:Name="Exchange" Grid.Row="3" Grid.Column="2" Content="Obmen" FontSize="16" FontWeight="Bold"/>
         <Button x:Name="ChangeSign" Grid.Row="4" Grid.Column="2" Content="+/-" FontSize="16" FontWeight="Bold"/>
 
-        <Button x:Name="B1" Grid.Row="3" Grid.Column="3" Content="1" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="B2" Grid.Row="3" Grid.Column="4" Content="2" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="B3" Grid.Row="3" Grid.Column="5" Content="3" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="B4" Grid.Row="4" Grid.Column="3" Content="4" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="B5" Grid.Row="4" Grid.Column="4" Content="5" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="B6" Grid.Row="4" Grid.Column="5" Content="6" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="B7" Grid.Row="5" Grid.Column="3" Content="7" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="B8" Grid.Row="5" Grid.Column="4" Content="8" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="B9" Grid.Row="5" Grid.Column="5" Content="9" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="B1" Grid.Row="3" Grid.Column="3" Content="1" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B2" Grid.Row="3" Grid.Column="4" Content="2" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B3" Grid.Row="3" Grid.Column="5" Content="3" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B4" Grid.Row="4" Grid.Column="3" Content="4" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B5" Grid.Row="4" Grid.Column="4" Content="5" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B6" Grid.Row="4" Grid.Column="5" Content="6" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B7" Grid.Row="5" Grid.Column="3" Content="7" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B8" Grid.Row="5" Grid.Column="4" Content="8" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B9" Grid.Row="5" Grid.Column="5" Content="9" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
     </Grid>
 </Window>
