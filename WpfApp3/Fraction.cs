@@ -10,6 +10,6 @@ namespace WpfApp3
     {
         public static long Divider;         //Числитель
         public static long Denominator;     //Знаменатель
-
+        public static long Total;           //Целая часть
     }
 }
