@@ -20,6 +20,10 @@ namespace WpfApp3
     /// </summary>
     public partial class MainWindow : Window
     {
+        private FractionForm _SecondForm = new FractionForm();
+        private DigitForm _ExpForm = new DigitForm();
+        private FractionForm _ResultForm = new FractionForm();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,7 +44,32 @@ namespace WpfApp3
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            Fraction1.Reset();
+            _FirstForm.Reset();
+            if(_SecondForm != null)
+                _SecondForm.Reset();
+            if(_ResultForm != null)
+                _ResultForm.Reset();
+        }
+
+        private void Sign_Click(object sender, RoutedEventArgs e)
+        {
+            var operation = (sender as Button).Content.ToString();
+
+            switch (operation)
+            {
+                case "+":
+                    _SignForm.ChangeSign(SignForm.SignIndex.Plus);
+                    break;
+                case "-":
+                    _SignForm.ChangeSign(SignForm.SignIndex.Minus);
+                    break;
+                case "*":
+                    _SignForm.ChangeSign(SignForm.SignIndex.Multi);
+                    break;
+                case "/":
+                    _SignForm.ChangeSign(SignForm.SignIndex.Divide);
+                    break;
+            }
         }
     }
 }
