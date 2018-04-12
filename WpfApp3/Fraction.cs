@@ -38,8 +38,19 @@ namespace WpfApp3
                     denominator = Math.Abs(denominator);
                 }
             }
-        }  
+        }
 
+        public Fraction(int up, int down) //Конструктор с параметрами 
+        {
+            divider = up;
+            denominator = down;
+        }
+
+        public Fraction() //Конструктор без параметров 
+        {
+            divider = 0;
+            denominator = 1;
+        }
 
 
     }
