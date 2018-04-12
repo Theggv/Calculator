@@ -16,15 +16,14 @@ using System.Windows.Shapes;
 namespace WpfApp3
 {
     /// <summary>
-    /// Логика взаимодействия для FractionForm.xaml
+    /// Логика взаимодействия для DigitForm.xaml
     /// </summary>
-    public partial class FractionForm : UserControl
+    public partial class DigitForm : UserControl
     {
-        public FractionForm()
+        public DigitForm()
         {
             InitializeComponent();
         }
-
         private void TextBox_InputFilter(object sender, KeyEventArgs e)
         {
             List<Key> validKeys = new List<Key>
@@ -43,9 +42,7 @@ namespace WpfApp3
 
         public void Reset()
         {
-            DivPart.Text = "";
-            Devider.Text = "";
-            Denominator.Text = "";
+            NumberTextBox.Text = "";
         }
     }
 }
