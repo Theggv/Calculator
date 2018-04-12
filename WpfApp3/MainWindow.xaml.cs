@@ -24,5 +24,23 @@ namespace WpfApp3
         {
             InitializeComponent();
         }
+
+        private void Num_Click(object sender, RoutedEventArgs e)
+        {
+            int curNum = int.Parse((sender as Button).Content.ToString());
+
+            IInputElement focusedControl = Keyboard.FocusedElement;
+
+            if (focusedControl is TextBox textBox)
+            {
+                textBox.Text += curNum.ToString();
+                textBox.SelectionStart = textBox.Text.Length;
+            }
+        }
+
+        private void Reset_Click(object sender, RoutedEventArgs e)
+        {
+            Fraction1.Reset();
+        }
     }
 }

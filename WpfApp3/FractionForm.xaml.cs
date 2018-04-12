@@ -20,9 +20,33 @@ namespace WpfApp3
     /// </summary>
     public partial class FractionForm : UserControl
     {
+        private FractionForm _Fraction2;
         public FractionForm()
         {
             InitializeComponent();
+        }
+
+        private void TextBox_InputFilter(object sender, KeyEventArgs e)
+        {
+            List<Key> validKeys = new List<Key>
+            {
+                Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7, Key.D8, Key.D9, Key.OemMinus
+            };
+            if (validKeys.Contains(e.Key))
+            {
+                var curTextBox = sender as TextBox;
+                if (e.Key == Key.OemMinus && (curTextBox.SelectionStart != 0 || curTextBox.Text.Contains("-")))
+                    e.Handled = true;
+            }
+            else
+                e.Handled = true;
+        }
+
+        public void Reset()
+        {
+            DivPart.Text = "";
+            Devider.Text = "";
+            Denominator.Text = "";
         }
     }
 }
