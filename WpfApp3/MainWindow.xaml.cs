@@ -20,6 +20,7 @@ namespace WpfApp3
     /// </summary>
     public partial class MainWindow : Window
     {
+        //test 
         private FractionForm _SecondForm = new FractionForm();
         private DigitForm _ExpForm = new DigitForm();
         private FractionForm _ResultForm = new FractionForm();
