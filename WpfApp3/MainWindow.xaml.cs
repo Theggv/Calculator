@@ -32,7 +32,7 @@ namespace WpfApp3
         private void Num_Click(object sender, RoutedEventArgs e)
         {
             int curNum = int.Parse((sender as Button).Content.ToString());
-            //
+            
             IInputElement focusedControl = Keyboard.FocusedElement;
 
             if (focusedControl is TextBox textBox)
