@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace WpfApp3
 {
-    class Fraction
+    public class Fraction
     {
       
         static int divider;
         static int denominator;
 
-        public int Divider
+        public int Denominator
         {
-            get { return divider; }
+            get { return denominator; }
             set
             {
+                denominator = value;
                 if (divider < 0 && denominator < 0)
                 {
                     divider = Math.Abs(divider);
@@ -25,13 +26,14 @@ namespace WpfApp3
             }
         }
 
-        public int Denominator
+        public int Divider
         {
-            get { return denominator; }
+            get { return divider; }
             set
             {
-                if (denominator == 0)
+                if (value == 0)
                     throw new Exception();
+                divider = value;
                 if (divider < 0 && denominator < 0)
                 {
                     divider = Math.Abs(divider);
@@ -42,14 +44,22 @@ namespace WpfApp3
 
         public Fraction(int up, int down) //Конструктор с параметрами 
         {
-            divider = up;
-            denominator = down;
+            if (up < 0 && down < 0)
+            {
+                Divider = Math.Abs(down);
+                Denominator = Math.Abs(up);
+            }
+            else
+            {
+                Divider = down;
+                Denominator = up;
+            }
         }
 
         public Fraction() //Конструктор без параметров 
         {
-            divider = 0;
-            denominator = 1;
+            Divider = 1;
+            Denominator = 0;
         }
 
 

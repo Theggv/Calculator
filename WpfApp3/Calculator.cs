@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WpfApp3
 {
-    class Calculator
+    public class Calculator
     {
-        public Fraction ChangeDomDen(Fraction a) //Change places of devider an denominator
+        public static Fraction ChangeDomDen(Fraction a) //Change places of devider an denominator
         {
             int c = a.Denominator;
             a.Divider = a.Denominator;
@@ -16,25 +16,7 @@ namespace WpfApp3
             return a;
         }
 
-        public Fraction Multiplication(Fraction a, Fraction b)
-        {
-            Fraction res = new Fraction();
-            res.Denominator = a.Denominator * b.Divider;
-            res.Divider = a.Divider * b.Denominator;
-            Reduction(a);
-            return res;
-        }
-
-        public Fraction Division(Fraction a, Fraction b)
-        {
-            Fraction res = new Fraction();
-            res.Denominator = a.Denominator * b.Denominator;
-            res.Divider = a.Divider * b.Divider;
-            Reduction(res);
-            return res;
-        }
-
-        public Fraction Exponent(Fraction a, int exp)
+        public static Fraction Exponent(Fraction a, int exp)
         {
             a.Denominator = (int)Math.Pow(a.Denominator, exp);
             a.Divider = (int)Math.Pow(a.Divider, exp);
@@ -42,7 +24,7 @@ namespace WpfApp3
             return a;
         }
 
-        public Fraction Reduction(Fraction a)
+        public static Fraction Reduction(Fraction a)
         {
             int nod = 0, beg; bool ok = false;  
             int aDen = Math.Abs(a.Denominator);
@@ -58,8 +40,8 @@ namespace WpfApp3
 
             if (ok)
             {
-                a.Denominator = aDen / nod;
-                a.Divider = aDiv / nod;
+                a.Denominator/= nod;
+                a.Divider/= nod;
             }
 
             return a;
