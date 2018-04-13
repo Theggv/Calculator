@@ -23,6 +23,7 @@ namespace WpfApp3
         private int _DivPart;
         private int _Divider;
         private int _Denominator;
+        private bool _IsReadOnly;
 
         public int DivPart
         {
@@ -53,6 +54,12 @@ namespace WpfApp3
                     _Denominator = value;
             }
         }
+
+        public bool IsReadOnly
+        {
+            get => _IsReadOnly;
+            set => _IsReadOnly = value;
+        }
         
         public FractionForm()
         {
@@ -61,6 +68,12 @@ namespace WpfApp3
 
         private void TextBox_InputFilter(object sender, KeyEventArgs e)
         {
+            if (_IsReadOnly)
+            {
+                e.Handled = true;
+                return;
+            }
+
             List<Key> validKeys = new List<Key>
             {
                 Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7, Key.D8, Key.D9, Key.OemMinus, Key.Back
@@ -77,6 +90,12 @@ namespace WpfApp3
 
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {
+            if (_IsReadOnly)
+            {
+                e.Handled = true;
+                return;
+            }
+
             var curTextBox = sender as TextBox;
 
             if (curTextBox.Text == "-")

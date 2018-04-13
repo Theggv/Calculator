@@ -21,6 +21,6 @@
                  VerticalAlignment="Bottom" FontSize="16" TextAlignment="Center" MaxLength="16" PreviewKeyDown="TextBox_InputFilter" KeyUp="TextBox_KeyUp"/>
         <TextBox x:Name="TextDenominator" Grid.Row="2" Grid.Column="1" 
                  VerticalAlignment="Top" FontSize="16" TextAlignment="Center" MaxLength="16" PreviewKeyDown="TextBox_InputFilter" KeyUp="TextBox_KeyUp"/>
-        <Rectangle Grid.Row="2" Grid.Column="2" Height="2" VerticalAlignment="Top" Fill="Black" />
+        <Rectangle Grid.Row="2" Grid.Column="2" Height="1" VerticalAlignment="Top" Fill="Black"/>
     </Grid>
 </UserControl>
