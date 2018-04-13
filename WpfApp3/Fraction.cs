@@ -1,67 +1,121 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static WpfApp3.Calculator;
 
 namespace WpfApp3
 {
-    public class Fraction
+    class Fraction
     {
-      
-        static int divider;
-        static int denominator;
+        public static int numerator;              //Числитель
+        public static int divider;          //Знаменатель
 
-        public int Denominator
+        public int Numerator                      //Условие числителя
         {
-            get { return denominator; }
+            get { return numerator; }
             set
             {
-                denominator = value;
-                if (divider < 0 && denominator < 0)
+                if (numerator < 0 && divider < 0)
                 {
+                    numerator = Math.Abs(numerator);
                     divider = Math.Abs(divider);
-                    denominator = Math.Abs(denominator);
                 }
+                else numerator = value;
             }
         }
 
-        public int Divider
+        public int Divider                  //Условие знаменателя
         {
             get { return divider; }
             set
             {
-                if (value == 0)
-                    throw new Exception();
-                divider = value;
-                if (divider < 0 && denominator < 0)
+                if (divider == 0)
+                    throw new Exception("Знаменатель не может быть равен нулю!");
+                else if (numerator < 0 && divider < 0)
                 {
+                    numerator = Math.Abs(numerator);
                     divider = Math.Abs(divider);
-                    denominator = Math.Abs(denominator);
                 }
+                else divider = value;
             }
         }
 
-        public Fraction(int up, int down) //����������� � ����������� 
+        public Fraction(int up, int down)       //Конструктор с параметрами
         {
-            if (up < 0 && down < 0)
-            {
-                Divider = Math.Abs(down);
-                Denominator = Math.Abs(up);
-            }
-            else
-            {
-                Divider = down;
-                Denominator = up;
-            }
+            numerator = up;
+            divider = down;
         }
 
-        public Fraction() //����������� ��� ���������� 
+        public Fraction()                       //Конструктор без параметров
         {
-            Divider = 1;
-            Denominator = 0;
+            numerator = 0;
+            divider = 1;
         }
 
+        public static Fraction operator *(Fraction a, int value) //Оператор умножения дроби на число девосторонний
+        {
+            Fraction result = a;
 
+            result.Divider *= value;
+            result.Numerator *= value;
+
+            return result;
+        }
+
+        public static Fraction operator *(int value, Fraction a) //Оператор умножения дроби на число правосторонний
+        {
+            Fraction result = a;
+
+            result.Divider *= value;
+            result.Numerator *= value;
+
+            return result;
+        }
+
+        public static Fraction operator *(Fraction a, Fraction b) //Оператор умножения дроби на дробь
+        {
+            Fraction result = new Fraction();
+
+            result.Divider = a.Divider * b.Divider;
+            result.Numerator = a.Numerator * b.Numerator;
+
+            return result;
+        }
+
+        public static Fraction operator +(Fraction a, Fraction b) //Оператор сложения
+        {
+            Fraction result = new Fraction();
+
+            result.Divider = a.Divider * b.Divider;
+            a *= b.Divider;
+            b *= a.Divider;
+            result.Numerator = a.Numerator + b.Numerator;
+            return result;
+        }
+
+        public static Fraction operator -(Fraction a, Fraction b) //Оператор вычитания
+        {
+            Fraction result = new Fraction();
+
+            result.Divider = a.Divider * b.Divider;
+            a *= b.Divider;
+            b *= a.Divider;
+            result.Numerator = a.Numerator - b.Numerator;
+            return result;
+        }
+
+        public static Fraction operator /(Fraction a, Fraction b) //Оператор умножения
+        {
+            Fraction result = new Fraction();
+
+            b = ChangeDomDen(b);
+
+            result.Divider = a.Divider * b.Divider;
+            result.Numerator = a.Numerator * b.Numerator;
+
+            return result;
+        }
     }
 }
