@@ -12,15 +12,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="DivPart" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" 
-                 TextAlignment="Right" VerticalAlignment="Center" FontSize="16" MaxLength="16" KeyDown="TextBox_InputFilter"/>
-        <TextBox x:Name="Devider" Grid.Row="0" Grid.Column="1" 
-                 VerticalAlignment="Bottom" FontSize="16" TextAlignment="Center" MaxLength="16" KeyDown="TextBox_InputFilter"/>
-        <TextBox x:Name="Denominator" Grid.Row="2" Grid.Column="1" 
-                 VerticalAlignment="Top" FontSize="16" TextAlignment="Center" MaxLength="16" KeyDown="TextBox_InputFilter"/>
-        <Rectangle Grid.Row="2" Grid.Column="2" Height="2" VerticalAlignment="Top" Fill="Black" />
+        <TextBox x:Name="TextDivPart" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" 
+                 TextAlignment="Right" VerticalAlignment="Center" FontSize="16" MaxLength="16" PreviewKeyDown="TextBox_InputFilter" KeyUp="TextBox_KeyUp"/>
+        <TextBox x:Name="TextDivider" Grid.Row="0" Grid.Column="1" 
+                 VerticalAlignment="Bottom" FontSize="16" TextAlignment="Center" MaxLength="16" PreviewKeyDown="TextBox_InputFilter" KeyUp="TextBox_KeyUp"/>
+        <TextBox x:Name="TextDenominator" Grid.Row="2" Grid.Column="1" 
+                 VerticalAlignment="Top" FontSize="16" TextAlignment="Center" MaxLength="16" PreviewKeyDown="TextBox_InputFilter" KeyUp="TextBox_KeyUp"/>
+        <Rectangle Grid.Row="2" Grid.Column="2" Height="1" VerticalAlignment="Top" Fill="Black"/>
     </Grid>
 </UserControl>

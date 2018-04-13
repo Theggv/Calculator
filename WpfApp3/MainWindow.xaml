@@ -8,12 +8,13 @@
         Title="MainWindow" Height="480" Width="640">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -23,29 +24,36 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <local:FractionForm x:Name="_FirstForm" Grid.Row="1" Grid.Column="1"/>
-        <local:SignForm x:Name="_SignForm" Grid.Row="1" Grid.Column="2"/>
+        <local:FractionForm x:Name="_FirstForm" Grid.Row="1" Grid.Column="2"/>
+        <local:FractionForm x:Name="_SecondForm" Grid.Row="1" Grid.Column="4"/>
+        <local:SignForm x:Name="_SignForm" Grid.Row="1" Grid.Column="3"/>
 
-        <Button x:Name="Reset" Grid.Row="2" Grid.Column="0" Content="Reset" FontSize="16" FontWeight="Bold" Click="Reset_Click"/>
-        <Button x:Name="Cancel" Grid.Row="2" Grid.Column="1" Content="Cancel" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="Plus" Grid.Row="3" Grid.Column="0" Content="+" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
-        <Button x:Name="Minus" Grid.Row="4" Grid.Column="0" Content="-" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
-        <Button x:Name="Multiplication" Grid.Row="3" Grid.Column="1" Content="*" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
-        <Button x:Name="Divide" Grid.Row="4" Grid.Column="1" Content="/" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
-        <Button x:Name="Exponentiation" Grid.Row="5" Grid.Column="0" Content="x^n" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
-        <Button x:Name="Reduction" Grid.Row="5" Grid.Column="1" Content="Sokrashenie" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="Exchange" Grid.Row="3" Grid.Column="2" Content="Obmen" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="ChangeSign" Grid.Row="4" Grid.Column="2" Content="+/-" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="Equal" Grid.Row="5" Grid.Column="2" Content="=" FontSize="16" FontWeight="Bold"/>
+        <local:FractionForm x:Name="_ResultForm" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"/>
 
-        <Button x:Name="B1" Grid.Row="3" Grid.Column="3" Content="1" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
-        <Button x:Name="B2" Grid.Row="3" Grid.Column="4" Content="2" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
-        <Button x:Name="B3" Grid.Row="3" Grid.Column="5" Content="3" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
-        <Button x:Name="B4" Grid.Row="4" Grid.Column="3" Content="4" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
-        <Button x:Name="B5" Grid.Row="4" Grid.Column="4" Content="5" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
-        <Button x:Name="B6" Grid.Row="4" Grid.Column="5" Content="6" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
-        <Button x:Name="B7" Grid.Row="5" Grid.Column="3" Content="7" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
-        <Button x:Name="B8" Grid.Row="5" Grid.Column="4" Content="8" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
-        <Button x:Name="B9" Grid.Row="5" Grid.Column="5" Content="9" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Border x:Name="ResultBorder" Grid.Row="2" Grid.ColumnSpan="6" BorderThickness="1" BorderBrush="Black" Margin="-1"/>
+
+        <local:SignForm x:Name="EqualForm" Grid.Row="2" Grid.Column="3"/>
+
+        <Button x:Name="Reset" Grid.Row="3" Grid.Column="0" Content="Reset" FontSize="16" FontWeight="Bold" Click="Reset_Click"/>
+        <Button x:Name="Cancel" Grid.Row="3" Grid.Column="1" Content="Cancel" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="Plus" Grid.Row="5" Grid.Column="0" Content="+" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
+        <Button x:Name="Minus" Grid.Row="6" Grid.Column="0" Content="-" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
+        <Button x:Name="Multiplication" Grid.Row="5" Grid.Column="1" Content="*" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
+        <Button x:Name="Divide" Grid.Row="6" Grid.Column="1" Content="/" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
+        <Button x:Name="Exponentiation" Grid.Row="4" Grid.Column="0" Content="x^n" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
+        <Button x:Name="Reduction" Grid.Row="4" Grid.Column="1" Content="Sokrashenie" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="Exchange" Grid.Row="4" Grid.Column="2" Content="Obmen" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="ChangeSign" Grid.Row="5" Grid.Column="2" Content="+/-" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="Equal" Grid.Row="6" Grid.Column="2" Content="=" FontSize="16" FontWeight="Bold"/>
+
+        <Button x:Name="B1" Grid.Row="4" Grid.Column="3" Content="1" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B2" Grid.Row="4" Grid.Column="4" Content="2" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B3" Grid.Row="4" Grid.Column="5" Content="3" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B4" Grid.Row="5" Grid.Column="3" Content="4" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B5" Grid.Row="5" Grid.Column="4" Content="5" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B6" Grid.Row="5" Grid.Column="5" Content="6" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B7" Grid.Row="6" Grid.Column="3" Content="7" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B8" Grid.Row="6" Grid.Column="4" Content="8" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
+        <Button x:Name="B9" Grid.Row="6" Grid.Column="5" Content="9" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
     </Grid>
 </Window>
