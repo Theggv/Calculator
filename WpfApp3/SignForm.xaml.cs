@@ -34,6 +34,7 @@ namespace WpfApp3
             InitializeComponent();
         }
 
+
         public void ChangeSign(SignIndex index)
         {
             switch (index)

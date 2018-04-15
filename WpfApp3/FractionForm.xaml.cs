@@ -129,7 +129,7 @@ namespace WpfApp3
 
             TextDivPart.Text = "";
             TextDivider.Text = "";
-            TextDenominator.Text = "";
+            TextNumerator.Text = "";
         }
     }
 }

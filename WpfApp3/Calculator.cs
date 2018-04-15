@@ -8,6 +8,60 @@ namespace WpfApp3
 {
     public class Calculator
     {
+        static Fraction a;
+        static Fraction b;
+        static Fraction res;
+        public enum Tools { Plus, Minus, Multi, Divide}
+        static Tools tool;
+
+        public Tools Tool
+        {
+            get => tool;
+            set => tool = value;
+        }
+        public Fraction A
+        {
+            get => a;
+            set => a = value;
+        }
+        public Fraction B
+        {
+            get => a;
+            set => b = value;
+        }
+        public Fraction Res
+        {
+            get => a;
+            set => res = value;
+        }
+
+        public Fraction Calculation()
+        {
+            res = new Fraction();
+            switch (tool)
+            {
+                case Tools.Divide:
+                    res = a / b;
+                    break;
+                case Tools.Minus:
+                    res = a - b;
+                    break;
+                case Tools.Plus:
+                    res = a + b;
+                    break;
+                case Tools.Multi:
+                    res = a * b;
+                    break;
+
+            }
+            return res;
+        }
+
+        public static int AllocateDivPart(Fraction a)
+        {
+            return a.Numerator / a.Divider;
+        }
+
         public static Fraction ChangeDomDen(Fraction a) //Change places of devider an Numerator
         {
             int c = a.Numerator;
@@ -42,7 +96,11 @@ namespace WpfApp3
 
         }
 
-
+        public Calculator()
+        {
+            A = new Fraction();
+            B = new Fraction();
+        }
 
     }
 }

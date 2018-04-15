@@ -54,6 +54,12 @@ namespace WpfApp3
             divider = 1;
         }
 
+        public Fraction (int div, int up, int down)
+        {
+            numerator = div * down + up;
+            divider = down;
+        }
+
         public static Fraction operator *(Fraction a, int value) //Оператор умножения дроби на число девосторонний
         {
             Fraction result = a;

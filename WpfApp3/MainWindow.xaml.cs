@@ -21,6 +21,8 @@ namespace WpfApp3
     public partial class MainWindow : Window
     { 
         private DigitForm _ExpForm = new DigitForm();
+        static string operation;
+        static bool isBinaryOperation;
 
         public MainWindow()
         {
@@ -29,6 +31,15 @@ namespace WpfApp3
             _SignForm.ChangeSign(SignForm.SignIndex.Plus);
             EqualForm.ChangeSign(SignForm.SignIndex.Equal);
             _ResultForm.IsReadOnly = true;
+            
+        }
+
+        private bool CheckText() //Method should check correctness of data in textboxes 
+        {
+            if (isBinaryOperation)
+                if (_FirstForm.Divider != 0 && _SecondForm.Divider != 0) return true;  //Fractions should exist (divider != 0)
+                else return false;                                                     //There should be messagebox with error message
+            else return false;                                                         //If operations are only for one fraction
         }
 
         private void Num_Click(object sender, RoutedEventArgs e)
@@ -61,17 +72,56 @@ namespace WpfApp3
             {
                 case "+":
                     _SignForm.ChangeSign(SignForm.SignIndex.Plus);
+                    isBinaryOperation = true;
                     break;
                 case "-":
                     _SignForm.ChangeSign(SignForm.SignIndex.Minus);
+                    isBinaryOperation = true;
                     break;
                 case "*":
                     _SignForm.ChangeSign(SignForm.SignIndex.Multi);
+                    isBinaryOperation = true;
                     break;
                 case "/":
                     _SignForm.ChangeSign(SignForm.SignIndex.Divide);
+                    isBinaryOperation = true;
                     break;
             }
+        }
+
+        private void Equal_Click(object sender, RoutedEventArgs e)
+        {
+            Calculator calc = new Calculator();
+            if (isBinaryOperation)
+            {
+                Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Denominator, _FirstForm.Divider);
+                calc.A = A;
+                Fraction B = new Fraction(_SecondForm.DivPart, _SecondForm.Denominator, _SecondForm.Divider);
+                calc.B = B;
+
+                switch (operation)
+                {
+                    case "+":
+                        calc.Tool = Calculator.Tools.Plus;
+                        break;
+                    case "-":
+                        calc.Tool = Calculator.Tools.Plus;
+                        break;
+                    case "/":
+                        calc.Tool = Calculator.Tools.Plus;
+                        break;
+                    case "*":
+                        calc.Tool = Calculator.Tools.Plus;
+                        break;
+                }
+
+                calc.Res = calc.Calculation();
+
+                _ResultForm.TextDivPart.Text = Calculator.AllocateDivPart(calc.Res).ToString();
+                _ResultForm.TextNumerator.Text = (calc.Res.Numerator - Calculator.AllocateDivPart(calc.Res) * calc.Res.Divider).ToString();
+                _ResultForm.TextDivider.Text = (calc.Res.Divider).ToString();
+            }
+
         }
     }
 }

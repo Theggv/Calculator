@@ -72,6 +72,14 @@ namespace UnitTestProject1
             Assert.AreEqual(true, ok);
         }
 
+        [TestMethod]
+        public void Construct4()
+        {
+            Fraction a = new Fraction(1, 2, 3);
+            Assert.AreEqual(a.Numerator, 5);
+            Assert.AreEqual(a.Divider, 3);
+        }
+
 
     }
 }
