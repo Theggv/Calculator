@@ -22,7 +22,8 @@ namespace WpfApp3
     {
         private int _DivPart;
         private int _Divider;
-        private int _Numerator;
+        private int _Denominator;
+        private bool _IsReadOnly;
 
         public int DivPart
         {
@@ -36,22 +37,28 @@ namespace WpfApp3
             set => _Divider = value;
         }
 
-        public int Numerator
+        public int Denominator
         {
             get
             {
-                if (_Numerator == 0)
+                if (_Denominator == 0)
                     return 1;
                 else
-                    return _Numerator;
+                    return _Denominator;
             }
             set
             {
                 if (value == 0)
-                    _Numerator = 1;
+                    _Denominator = 1;
                 else
-                    _Numerator = value;
+                    _Denominator = value;
             }
+        }
+
+        public bool IsReadOnly
+        {
+            get => _IsReadOnly;
+            set => _IsReadOnly = value;
         }
         
         public FractionForm()
@@ -61,6 +68,12 @@ namespace WpfApp3
 
         private void TextBox_InputFilter(object sender, KeyEventArgs e)
         {
+            if (_IsReadOnly)
+            {
+                e.Handled = true;
+                return;
+            }
+
             List<Key> validKeys = new List<Key>
             {
                 Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7, Key.D8, Key.D9, Key.OemMinus, Key.Back
@@ -77,6 +90,12 @@ namespace WpfApp3
 
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {
+            if (_IsReadOnly)
+            {
+                e.Handled = true;
+                return;
+            }
+
             var curTextBox = sender as TextBox;
 
             if (curTextBox.Text == "-")
@@ -88,8 +107,8 @@ namespace WpfApp3
                     DivPart = 0;
                 else if (curTextBox.Name == "TextDivPart")
                     Divider = 0;
-                else if (curTextBox.Name == "TextNumerator")
-                    Numerator = 0;
+                else if (curTextBox.Name == "TextDenominator")
+                    Denominator = 0;
             }
             else
             {
@@ -97,8 +116,8 @@ namespace WpfApp3
                     DivPart = int.Parse(curTextBox.Text);
                 else if (curTextBox.Name == "TextDivPart")
                     Divider = int.Parse(curTextBox.Text);
-                else if (curTextBox.Name == "TextNumerator")
-                    Numerator = int.Parse(curTextBox.Text);
+                else if (curTextBox.Name == "TextDenominator")
+                    Denominator = int.Parse(curTextBox.Text);
             }
         }
 
@@ -106,11 +125,11 @@ namespace WpfApp3
         {
             DivPart = 0;
             Divider = 0;
-            Numerator = 0;
+            Denominator = 0;
 
             TextDivPart.Text = "";
             TextDivider.Text = "";
-            TextNumerator.Text = "";
+            TextDenominator.Text = "";
         }
     }
 }

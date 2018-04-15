@@ -19,22 +19,22 @@ namespace WpfApp3
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
-        private FractionForm _SecondForm = new FractionForm();
+    { 
         private DigitForm _ExpForm = new DigitForm();
-        private FractionForm _ResultForm = new FractionForm();
 
         public MainWindow()
         {
             InitializeComponent();
 
+            _SignForm.ChangeSign(SignForm.SignIndex.Plus);
             EqualForm.ChangeSign(SignForm.SignIndex.Equal);
+            _ResultForm.IsReadOnly = true;
         }
 
         private void Num_Click(object sender, RoutedEventArgs e)
         {
             int curNum = int.Parse((sender as Button).Content.ToString());
-
+            
             IInputElement focusedControl = Keyboard.FocusedElement;
 
             if (focusedControl is TextBox textBox)
