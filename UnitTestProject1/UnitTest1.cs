@@ -25,18 +25,18 @@ namespace UnitTestProject1
         public void Reduction2()
         {
             Fraction d = new Fraction(-16, -80);  //Init Fraction -16/-80
-            c = Calculator.Reduction(c);
-            Assert.AreEqual(c.Divider, 5);
-            Assert.AreEqual(c.Numerator, 1);
+            c = Calculator.Reduction(d);
+            Assert.AreEqual(d.Divider, 5);
+            Assert.AreEqual(d.Numerator, 1);
         }
 
         [TestMethod]
         public void Reduction3()
         {
-            Fraction d = new Fraction(2,3);  //Init Fraction -16/-80
-            c = Calculator.Reduction(c);
-            Assert.AreEqual(c.Divider, 3);
-            Assert.AreEqual(c.Numerator, 2);
+            Fraction d = new Fraction(2,3);  
+            c = Calculator.Reduction(d);
+            Assert.AreEqual(d.Divider, 3);
+            Assert.AreEqual(d.Numerator, 2);
         }
 
         [TestMethod]
@@ -81,6 +81,14 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
+        public void Construct5()
+        {
+            Fraction a = new Fraction(2, 1, 7);
+            Assert.AreEqual(a.Numerator, 15);
+            Assert.AreEqual(a.Divider, 7);
+        }
+
+        [TestMethod]
         public void Plus1()
         {
             Fraction a = new Fraction(2, 5);
@@ -110,6 +118,76 @@ namespace UnitTestProject1
 
             Assert.AreEqual(res.Divider, 7);
             Assert.AreEqual(res.Numerator, 4);
+        }
+
+        [TestMethod]
+        public void Divdider1()
+        {
+            Fraction a = new Fraction(1, 7);
+            Assert.AreEqual(a.Numerator, 1);
+            Assert.AreEqual(a.Divider, 7);
+        }
+
+        [TestMethod]
+        public void Plus5()
+        {
+            Fraction a = new Fraction(3, 1, 8);
+            Fraction b = new Fraction(3, 7, 8);
+            Fraction res = a + b;
+
+            Assert.AreEqual(res.Divider, 1);
+            Assert.AreEqual(res.Numerator, 7);
+        }
+
+        [TestMethod]
+        public void Plus6()
+        {
+            Fraction a = new Fraction(3, 5, 8);
+            Fraction b = new Fraction(3, 7, 8);
+            Fraction res = a + b;
+
+            Assert.AreEqual(res.Divider, 2 );
+            Assert.AreEqual(res.Numerator, 15);
+        }
+
+        [TestMethod]
+        public void Allocate1()
+        {
+            Fraction a = new Fraction(2, 3);
+            int div = Calculator.AllocateDivPart(a);
+            Assert.AreEqual(div, 0);
+        }
+
+        [TestMethod]
+        public void Allocate2()
+        {
+            Fraction a = new Fraction(3, 3);
+            int div = Calculator.AllocateDivPart(a);
+            Assert.AreEqual(div, 1);
+        }
+
+        [TestMethod]
+        public void Allocate3()
+        {
+            Fraction a = new Fraction(4, 3);
+            int div = Calculator.AllocateDivPart(a);
+            Assert.AreEqual(div, 1);
+        }
+
+        [TestMethod]
+        public void Allocate4()
+        {
+            Fraction a = new Fraction(80, 16);
+            int div = Calculator.AllocateDivPart(a);
+            Assert.AreEqual(div, 5);
+        }
+
+        [TestMethod]
+        public void Allocate5()
+        {
+            Fraction a = new Fraction(17,4,7);
+            int div = Calculator.AllocateDivPart(a);
+            Assert.AreEqual(div, 17);
         }
 
 

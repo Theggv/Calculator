@@ -26,7 +26,7 @@ namespace WpfApp3
         private bool _IsExp = false;
         private bool _IsChange = false;
         private bool _IsRed = false;
-        static Calculator calc;
+        static Calculator calc = new Calculator();
 
         public MainWindow()
         {
@@ -34,8 +34,8 @@ namespace WpfApp3
 
             _SignForm.ChangeSign(SignForm.SignIndex.Plus);
             EqualForm.ChangeSign(SignForm.SignIndex.Equal);
+            isBinaryOperation = true;
             _ResultForm.IsReadOnly = true;
-            Calculator calc = new Calculator();
 
         }
 
@@ -72,12 +72,14 @@ namespace WpfApp3
         private void Red_Click(object sender, RoutedEventArgs e)
         {
             MainGrid.Children.Remove(_SecondForm);
+            isBinaryOperation = false;
             _IsRed = true;
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
             MainGrid.Children.Remove(_SecondForm);
+            isBinaryOperation = false;
             _IsChange = true;
 
         }
@@ -110,11 +112,33 @@ namespace WpfApp3
 
         private void Equal_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+        private void Exp_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_IsExp)
+            {
+                isBinaryOperation = false;
+                _ExpForm = new DigitForm();
+
+                MainGrid.Children.Remove(_SecondForm);
+                MainGrid.Children.Add(_ExpForm);
+
+                Grid.SetRow(_ExpForm, 1);
+                Grid.SetColumn(_ExpForm, 4);
+
+                _SignForm.ChangeSign(SignForm.SignIndex.Exp);
+                _IsExp = true;
+            }
+        }
+
+        private void Equal_Click_1(object sender, RoutedEventArgs e)
+        {
             if (isBinaryOperation)
             {
-                Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Denominator, _FirstForm.Divider);
+                Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Divider, _FirstForm.Denominator);
                 calc.A = A;
-                Fraction B = new Fraction(_SecondForm.DivPart, _SecondForm.Denominator, _SecondForm.Divider);
+                Fraction B = new Fraction(_SecondForm.DivPart, _SecondForm.Divider, _SecondForm.Denominator);
                 calc.B = B;
 
                 switch (operation)
@@ -138,23 +162,9 @@ namespace WpfApp3
                 if (_IsRed) { calc.Tool = Calculator.Tools.Red; }
                 calc.Res = calc.Calculation();
 
-                _ResultForm.RewriteResult(Calculator.AllocateDivPart(calc.Res), calc.Res.Divider, calc.Res.Numerator);
-            }
-        }
-        private void Exp_Click(object sender, RoutedEventArgs e)
-        {
-            if (!_IsExp)
-            {
-                _ExpForm = new DigitForm();
-
-                MainGrid.Children.Remove(_SecondForm);
-                MainGrid.Children.Add(_ExpForm);
-
-                Grid.SetRow(_ExpForm, 1);
-                Grid.SetColumn(_ExpForm, 4);
-
-                _SignForm.ChangeSign(SignForm.SignIndex.Exp);
-                _IsExp = true;
+                _ResultForm.RewriteResult(Calculator.AllocateDivPart(calc.Res), 
+                    calc.Res.Numerator - Calculator.AllocateDivPart(calc.Res)*calc.Res.Divider, 
+                    calc.Res.Divider );
             }
         }
     }

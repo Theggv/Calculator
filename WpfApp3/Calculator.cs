@@ -31,7 +31,7 @@ namespace WpfApp3
         }
         public Fraction Res
         {
-            get => a;
+            get => res;
             set => res = value;
         }
 
@@ -98,7 +98,7 @@ namespace WpfApp3
             int a = Math.Abs(fr.Numerator);
             int b = Math.Abs(fr.Divider);
 
-            while (a != 0 && b != 0)
+            while (a > 0 && b > 0)
                 if (a >= b) a %= b;
                 else b %= a;
             nod = a + b;
