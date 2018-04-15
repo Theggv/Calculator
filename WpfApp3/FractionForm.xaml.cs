@@ -22,7 +22,7 @@ namespace WpfApp3
     {
         private int _DivPart;
         private int _Divider;
-        private int _Denominator;
+        private int _Numerator;
 
         public int DivPart
         {
@@ -36,21 +36,21 @@ namespace WpfApp3
             set => _Divider = value;
         }
 
-        public int Denominator
+        public int Numerator
         {
             get
             {
-                if (_Denominator == 0)
+                if (_Numerator == 0)
                     return 1;
                 else
-                    return _Denominator;
+                    return _Numerator;
             }
             set
             {
                 if (value == 0)
-                    _Denominator = 1;
+                    _Numerator = 1;
                 else
-                    _Denominator = value;
+                    _Numerator = value;
             }
         }
         
@@ -88,8 +88,8 @@ namespace WpfApp3
                     DivPart = 0;
                 else if (curTextBox.Name == "TextDivPart")
                     Divider = 0;
-                else if (curTextBox.Name == "TextDenominator")
-                    Denominator = 0;
+                else if (curTextBox.Name == "TextNumerator")
+                    Numerator = 0;
             }
             else
             {
@@ -97,8 +97,8 @@ namespace WpfApp3
                     DivPart = int.Parse(curTextBox.Text);
                 else if (curTextBox.Name == "TextDivPart")
                     Divider = int.Parse(curTextBox.Text);
-                else if (curTextBox.Name == "TextDenominator")
-                    Denominator = int.Parse(curTextBox.Text);
+                else if (curTextBox.Name == "TextNumerator")
+                    Numerator = int.Parse(curTextBox.Text);
             }
         }
 
@@ -106,11 +106,11 @@ namespace WpfApp3
         {
             DivPart = 0;
             Divider = 0;
-            Denominator = 0;
+            Numerator = 0;
 
             TextDivPart.Text = "";
             TextDivider.Text = "";
-            TextDenominator.Text = "";
+            TextNumerator.Text = "";
         }
     }
 }

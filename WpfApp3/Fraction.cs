@@ -7,7 +7,7 @@ using static WpfApp3.Calculator;
 
 namespace WpfApp3
 {
-    class Fraction
+     public class Fraction
     {
         public static int numerator;              //Числитель
         public static int divider;          //Знаменатель
@@ -60,6 +60,8 @@ namespace WpfApp3
 
             result.Divider *= value;
             result.Numerator *= value;
+            Reduction(result);
+
 
             return result;
         }
@@ -70,6 +72,8 @@ namespace WpfApp3
 
             result.Divider *= value;
             result.Numerator *= value;
+            Reduction(result);
+
 
             return result;
         }
@@ -80,6 +84,8 @@ namespace WpfApp3
 
             result.Divider = a.Divider * b.Divider;
             result.Numerator = a.Numerator * b.Numerator;
+            Reduction(result);
+
 
             return result;
         }
@@ -92,6 +98,7 @@ namespace WpfApp3
             a *= b.Divider;
             b *= a.Divider;
             result.Numerator = a.Numerator + b.Numerator;
+            Reduction(result);
             return result;
         }
 
@@ -103,6 +110,7 @@ namespace WpfApp3
             a *= b.Divider;
             b *= a.Divider;
             result.Numerator = a.Numerator - b.Numerator;
+            Reduction(result);
             return result;
         }
 
@@ -114,6 +122,7 @@ namespace WpfApp3
 
             result.Divider = a.Divider * b.Divider;
             result.Numerator = a.Numerator * b.Numerator;
+            Reduction(result);
 
             return result;
         }

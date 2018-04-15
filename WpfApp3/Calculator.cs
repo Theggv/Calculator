@@ -8,17 +8,17 @@ namespace WpfApp3
 {
     public class Calculator
     {
-        public static Fraction ChangeDomDen(Fraction a) //Change places of devider an denominator
+        public static Fraction ChangeDomDen(Fraction a) //Change places of devider an Numerator
         {
-            int c = a.Denominator;
-            a.Divider = a.Denominator;
-            a.Denominator = c;
+            int c = a.Numerator;
+            a.Divider = a.Numerator;
+            a.Numerator = c;
             return a;
         }
 
         public static Fraction Exponent(Fraction a, int exp)
         {
-            a.Denominator = (int)Math.Pow(a.Denominator, exp);
+            a.Numerator = (int)Math.Pow(a.Numerator, exp);
             a.Divider = (int)Math.Pow(a.Divider, exp);
             Reduction(a);
             return a;
@@ -27,7 +27,7 @@ namespace WpfApp3
         public static Fraction Reduction(Fraction fr)
         {
             int nod = 0, beg; bool ok = false;  
-            int a = Math.Abs(fr.Denominator);
+            int a = Math.Abs(fr.Numerator);
             int b = Math.Abs(fr.Divider);
 
             while (a != 0 && b != 0)
@@ -35,11 +35,14 @@ namespace WpfApp3
                 else b %= a;
             nod = a + b;
 
-            fr.Denominator /= nod;
+            fr.Numerator /= nod;
             fr.Divider /= nod;
 
             return fr;
 
         }
+
+
+
     }
 }

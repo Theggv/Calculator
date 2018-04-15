@@ -18,7 +18,7 @@ namespace UnitTestProject1
             Fraction c = new Fraction(-10, 5);    //Init fraction -10/5
             c = Calculator.Reduction(c);
             Assert.AreEqual(c.Divider,1);
-            Assert.AreEqual(c.Denominator, -2);
+            Assert.AreEqual(c.Numerator, -2);
         }
 
         [TestMethod]
@@ -27,7 +27,7 @@ namespace UnitTestProject1
             Fraction d = new Fraction(-16, -80);  //Init Fraction -16/-80
             c = Calculator.Reduction(c);
             Assert.AreEqual(c.Divider, 5);
-            Assert.AreEqual(c.Denominator, 1);
+            Assert.AreEqual(c.Numerator, 1);
         }
 
         [TestMethod]
@@ -36,14 +36,14 @@ namespace UnitTestProject1
             Fraction d = new Fraction(2,3);  //Init Fraction -16/-80
             c = Calculator.Reduction(c);
             Assert.AreEqual(c.Divider, 3);
-            Assert.AreEqual(c.Denominator, 2);
+            Assert.AreEqual(c.Numerator, 2);
         }
 
         [TestMethod]
         public void Constuct1()
         {
             Fraction a = new Fraction(2, 3);
-            Assert.AreEqual(a.Denominator, 2);
+            Assert.AreEqual(a.Numerator, 2);
             Assert.AreEqual(a.Divider, 3);
         }
 
@@ -51,7 +51,7 @@ namespace UnitTestProject1
         public void Construct2()
         {
             Fraction a = new Fraction(-16, -80);
-            Assert.AreEqual(a.Denominator, 16);
+            Assert.AreEqual(a.Numerator, 16);
             Assert.AreEqual(a.Divider, 80);
         }
 
@@ -62,7 +62,7 @@ namespace UnitTestProject1
             try
             {
                 Fraction a = new Fraction(-16, 0);
-                Assert.AreEqual(a.Denominator, 16);
+                Assert.AreEqual(a.Numerator, 16);
                 Assert.AreEqual(a.Divider, 80);
             }
             catch (Exception)
