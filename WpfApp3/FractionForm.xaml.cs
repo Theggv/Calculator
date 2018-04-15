@@ -107,7 +107,7 @@ namespace WpfApp3
                     DivPart = 0;
                 else if (curTextBox.Name == "TextDivider")
                     Divider = 0;
-                else if (curTextBox.Name == "TextDenominator")
+                else if (curTextBox.Name == "TextNumerator")
                     Denominator = 0;
             }
             else
@@ -116,7 +116,7 @@ namespace WpfApp3
                     DivPart = int.Parse(curTextBox.Text);
                 else if (curTextBox.Name == "TextDivider")
                     Divider = int.Parse(curTextBox.Text);
-                else if (curTextBox.Name == "TextDenominator")
+                else if (curTextBox.Name == "TextNumerator")
                     Denominator = int.Parse(curTextBox.Text);
             }
         }

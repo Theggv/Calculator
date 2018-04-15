@@ -26,7 +26,7 @@ namespace WpfApp3
         }
         public Fraction B
         {
-            get => a;
+            get => b;
             set => b = value;
         }
         public Fraction Res

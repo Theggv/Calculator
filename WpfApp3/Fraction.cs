@@ -46,6 +46,12 @@ namespace WpfApp3
         {
             numerator = up;
             divider = down;
+
+            if (numerator<0 && divider < 0)
+            {
+                numerator = Math.Abs(numerator);
+                divider = Math.Abs(divider);
+            }
         }
 
         public Fraction()                       //Конструктор без параметров
@@ -58,6 +64,12 @@ namespace WpfApp3
         {
             numerator = div * down + up;
             divider = down;
+
+            if (numerator < 0 && divider < 0)
+            {
+                numerator = Math.Abs(numerator);
+                divider = Math.Abs(divider);
+            }
         }
 
         public static Fraction operator *(Fraction a, int value) //Оператор умножения дроби на число девосторонний
