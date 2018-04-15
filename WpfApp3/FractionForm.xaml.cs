@@ -20,6 +20,40 @@ namespace WpfApp3
     /// </summary>
     public partial class FractionForm : UserControl
     {
+        private int _DivPart;
+        private int _Divider;
+        private int _Denominator;
+
+        public int DivPart
+        {
+            get => _DivPart;
+            set => _DivPart = value;
+        }
+
+        public int Divider
+        {
+            get => _Divider;
+            set => _Divider = value;
+        }
+
+        public int Denominator
+        {
+            get
+            {
+                if (_Denominator == 0)
+                    return 1;
+                else
+                    return _Denominator;
+            }
+            set
+            {
+                if (value == 0)
+                    _Denominator = 1;
+                else
+                    _Denominator = value;
+            }
+        }
+        
         public FractionForm()
         {
             InitializeComponent();
@@ -29,7 +63,7 @@ namespace WpfApp3
         {
             List<Key> validKeys = new List<Key>
             {
-                Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7, Key.D8, Key.D9, Key.OemMinus
+                Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7, Key.D8, Key.D9, Key.OemMinus, Key.Back
             };
             if (validKeys.Contains(e.Key))
             {
@@ -41,11 +75,42 @@ namespace WpfApp3
                 e.Handled = true;
         }
 
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            var curTextBox = sender as TextBox;
+
+            if (curTextBox.Text == "-")
+                return;
+
+            if (curTextBox.Text == "")
+            {
+                if (curTextBox.Name == "TextDivPart")
+                    DivPart = 0;
+                else if (curTextBox.Name == "TextDivPart")
+                    Divider = 0;
+                else if (curTextBox.Name == "TextDenominator")
+                    Denominator = 0;
+            }
+            else
+            {
+                if (curTextBox.Name == "TextDivPart")
+                    DivPart = int.Parse(curTextBox.Text);
+                else if (curTextBox.Name == "TextDivPart")
+                    Divider = int.Parse(curTextBox.Text);
+                else if (curTextBox.Name == "TextDenominator")
+                    Denominator = int.Parse(curTextBox.Text);
+            }
+        }
+
         public void Reset()
         {
-            DivPart.Text = "";
-            Devider.Text = "";
-            Denominator.Text = "";
+            DivPart = 0;
+            Divider = 0;
+            Denominator = 0;
+
+            TextDivPart.Text = "";
+            TextDivider.Text = "";
+            TextDenominator.Text = "";
         }
     }
 }

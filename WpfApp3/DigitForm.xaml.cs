@@ -20,6 +20,13 @@ namespace WpfApp3
     /// </summary>
     public partial class DigitForm : UserControl
     {
+        private int _Digit;
+
+        public int Digit
+        {
+            get => _Digit;
+            set => _Digit = value;
+        }
         public DigitForm()
         {
             InitializeComponent();
@@ -40,8 +47,23 @@ namespace WpfApp3
                 e.Handled = true;
         }
 
+        private void TextBox_BlockSpace(object sender, KeyEventArgs e)
+        {
+            var curTextBox = sender as TextBox;
+
+            if (curTextBox.Text == "-")
+                return;
+
+            if (curTextBox.Text == "")
+                Digit = 0;
+            else
+                Digit = int.Parse(curTextBox.Text);
+        }
+
         public void Reset()
         {
+            Digit = 0;
+
             NumberTextBox.Text = "";
         }
     }

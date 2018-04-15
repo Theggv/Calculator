@@ -27,6 +27,8 @@ namespace WpfApp3
         public MainWindow()
         {
             InitializeComponent();
+
+            EqualForm.ChangeSign(SignForm.SignIndex.Equal);
         }
 
         private void Num_Click(object sender, RoutedEventArgs e)
