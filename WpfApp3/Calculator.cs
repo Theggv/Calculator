@@ -24,27 +24,21 @@ namespace WpfApp3
             return a;
         }
 
-        public static Fraction Reduction(Fraction a)
+        public static Fraction Reduction(Fraction fr)
         {
             int nod = 0, beg; bool ok = false;  
-            int aDen = Math.Abs(a.Denominator);
-            int aDiv = Math.Abs(a.Divider);
+            int a = Math.Abs(fr.Denominator);
+            int b = Math.Abs(fr.Divider);
 
-            if (aDen < aDiv) beg = aDen;         //if denominator>divider then change the begining number of the cycle
-            else beg = aDiv;
+            while (a != 0 && b != 0)
+                if (a >= b) a %= b;
+                else b %= a;
+            nod = a + b;
 
-            for (int i = beg; i > 0 && !ok; i--)
-            {
-                if (aDen % i == 0 && aDiv % i == 0) { nod = i; ok = true; }  //find the max value, which divide denominator and divider 
-            }
+            fr.Denominator /= nod;
+            fr.Divider /= nod;
 
-            if (ok)
-            {
-                a.Denominator/= nod;
-                a.Divider/= nod;
-            }
-
-            return a;
+            return fr;
 
         }
     }
