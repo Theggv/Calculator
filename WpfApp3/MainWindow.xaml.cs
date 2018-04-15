@@ -23,6 +23,7 @@ namespace WpfApp3
         private DigitForm _ExpForm = new DigitForm();
         static string operation;
         static bool isBinaryOperation;
+        private bool _IsExp = false;
 
         public MainWindow()
         {
@@ -121,7 +122,23 @@ namespace WpfApp3
                 _ResultForm.TextNumerator.Text = (calc.Res.Numerator - Calculator.AllocateDivPart(calc.Res) * calc.Res.Divider).ToString();
                 _ResultForm.TextDivider.Text = (calc.Res.Divider).ToString();
             }
+        }
+        private void Exp_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_IsExp)
+            {
+                _ExpForm = new DigitForm();
 
+                MainGrid.Children.Remove(_SecondForm);
+                MainGrid.Children.Add(_ExpForm);
+
+                Grid.SetRow(_ExpForm, 1);
+                Grid.SetColumn(_ExpForm, 4);
+
+                _SignForm.ChangeSign(SignForm.SignIndex.Exp);
+
+                _IsExp = true;
+            }
         }
     }
 }
