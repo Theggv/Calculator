@@ -19,8 +19,9 @@ namespace WpfApp3
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    { 
-        private DigitForm _ExpForm = new DigitForm();
+    {
+        private DigitForm _ExpForm;
+        private bool _IsExp = false;
 
         public MainWindow()
         {
@@ -57,6 +58,19 @@ namespace WpfApp3
         {
             var operation = (sender as Button).Content.ToString();
 
+            if(_IsExp)
+            {
+                _SecondForm = new FractionForm();
+
+                MainGrid.Children.Remove(_ExpForm);
+                MainGrid.Children.Add(_SecondForm);
+
+                Grid.SetRow(_SecondForm, 1);
+                Grid.SetColumn(_SecondForm, 4);
+
+                _IsExp = false;
+            }
+
             switch (operation)
             {
                 case "+":
@@ -71,6 +85,24 @@ namespace WpfApp3
                 case "/":
                     _SignForm.ChangeSign(SignForm.SignIndex.Divide);
                     break;
+            }
+        }
+
+        private void Exp_Click(object sender, RoutedEventArgs e)
+        {
+            if(!_IsExp)
+            {
+                _ExpForm = new DigitForm();
+
+                MainGrid.Children.Remove(_SecondForm);
+                MainGrid.Children.Add(_ExpForm);
+
+                Grid.SetRow(_ExpForm, 1);
+                Grid.SetColumn(_ExpForm, 4);
+
+                _SignForm.ChangeSign(SignForm.SignIndex.Exp);
+
+                _IsExp = true;
             }
         }
     }

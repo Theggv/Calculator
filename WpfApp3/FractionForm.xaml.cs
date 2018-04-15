@@ -131,5 +131,16 @@ namespace WpfApp3
             TextDivider.Text = "";
             TextDenominator.Text = "";
         }
+
+        public void RewriteResult(int divPart, int divider, int denominator)
+        {
+            DivPart = divPart;
+            Divider = divider;
+            Denominator = denominator;
+
+            TextDivPart.Text = divPart.ToString();
+            TextDivider.Text = divider.ToString();
+            TextDenominator.Text = denominator.ToString();
+        }
     }
 }

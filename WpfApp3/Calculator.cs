@@ -39,10 +39,6 @@ namespace WpfApp3
             fr.Divider /= nod;
 
             return fr;
-
         }
-
-
-
     }
 }

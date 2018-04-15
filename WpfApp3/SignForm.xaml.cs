@@ -27,7 +27,8 @@ namespace WpfApp3
             Minus,
             Multi,
             Divide,
-            Equal
+            Equal,
+            Exp
         }
         public SignForm()
         {
@@ -52,6 +53,9 @@ namespace WpfApp3
                     break;
                 case SignIndex.Equal:
                     Sign.Text = "=";
+                    break;
+                case SignIndex.Exp:
+                    Sign.Text = "^";
                     break;
                 default:
                     Sign.Text = "";
