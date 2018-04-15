@@ -11,9 +11,9 @@ namespace WpfApp3
         static Fraction a;
         static Fraction b;
         static Fraction res;
-        public enum Tools { Plus, Minus, Multi, Divide}
+        public enum Tools { Plus, Minus, Multi, Divide, Exp, Change, Red}
         static Tools tool;
-
+        static int exp;
         public Tools Tool
         {
             get => tool;
@@ -35,6 +35,12 @@ namespace WpfApp3
             set => res = value;
         }
 
+        public int Exp
+        {
+            get => exp;
+            set => exp = value;
+        }
+
         public Fraction Calculation()
         {
             res = new Fraction();
@@ -52,7 +58,15 @@ namespace WpfApp3
                 case Tools.Multi:
                     res = a * b;
                     break;
-
+                case Tools.Exp:
+                    res = Exponent(a, exp);
+                    break;
+                case Tools.Change:
+                    res = ChangeDomDen(a);
+                    break;
+                case Tools.Red:
+                    res = Reduction(a);
+                    break;
             }
             return res;
         }

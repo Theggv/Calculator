@@ -24,6 +24,9 @@ namespace WpfApp3
         static string operation;
         static bool isBinaryOperation;
         private bool _IsExp = false;
+        private bool _IsChange = false;
+        private bool _IsRed = false;
+        static Calculator calc;
 
         public MainWindow()
         {
@@ -32,7 +35,8 @@ namespace WpfApp3
             _SignForm.ChangeSign(SignForm.SignIndex.Plus);
             EqualForm.ChangeSign(SignForm.SignIndex.Equal);
             _ResultForm.IsReadOnly = true;
-            
+            Calculator calc = new Calculator();
+
         }
 
         private bool CheckText() //Method should check correctness of data in textboxes 
@@ -65,6 +69,20 @@ namespace WpfApp3
                 _ResultForm.Reset();
         }
 
+        private void Red_Click(object sender, RoutedEventArgs e)
+        {
+            MainGrid.Children.Remove(_SecondForm);
+            _IsRed = true;
+        }
+
+        private void Change_Click(object sender, RoutedEventArgs e)
+        {
+            MainGrid.Children.Remove(_SecondForm);
+            _IsChange = true;
+
+        }
+
+
         private void Sign_Click(object sender, RoutedEventArgs e)
         {
             var operation = (sender as Button).Content.ToString();
@@ -92,7 +110,6 @@ namespace WpfApp3
 
         private void Equal_Click(object sender, RoutedEventArgs e)
         {
-            Calculator calc = new Calculator();
             if (isBinaryOperation)
             {
                 Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Denominator, _FirstForm.Divider);
@@ -116,11 +133,12 @@ namespace WpfApp3
                         break;
                 }
 
+                if (_IsExp) { calc.Tool = Calculator.Tools.Exp; calc.Exp = _ExpForm.Digit; }
+                if (_IsChange) { calc.Tool = Calculator.Tools.Change; }
+                if (_IsRed) { calc.Tool = Calculator.Tools.Red; }
                 calc.Res = calc.Calculation();
 
-                _ResultForm.TextDivPart.Text = Calculator.AllocateDivPart(calc.Res).ToString();
-                _ResultForm.TextNumerator.Text = (calc.Res.Numerator - Calculator.AllocateDivPart(calc.Res) * calc.Res.Divider).ToString();
-                _ResultForm.TextDivider.Text = (calc.Res.Divider).ToString();
+                _ResultForm.RewriteResult(Calculator.AllocateDivPart(calc.Res), calc.Res.Divider, calc.Res.Numerator);
             }
         }
         private void Exp_Click(object sender, RoutedEventArgs e)
@@ -136,7 +154,6 @@ namespace WpfApp3
                 Grid.SetColumn(_ExpForm, 4);
 
                 _SignForm.ChangeSign(SignForm.SignIndex.Exp);
-
                 _IsExp = true;
             }
         }
