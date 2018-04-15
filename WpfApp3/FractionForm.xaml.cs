@@ -21,8 +21,9 @@ namespace WpfApp3
     public partial class FractionForm : UserControl
     {
         private int _DivPart;
+        private int _Numerator;
         private int _Divider;
-        private int _Denominator;
+
         private bool _IsReadOnly;
 
         public int DivPart
@@ -31,27 +32,27 @@ namespace WpfApp3
             set => _DivPart = value;
         }
 
-        public int Divider
+        public int Numerator
         {
-            get => _Divider;
-            set => _Divider = value;
+            get => _Numerator;
+            set => _Numerator = value;
         }
 
-        public int Denominator
+        public int Divider
         {
             get
             {
-                if (_Denominator == 0)
+                if (_Divider == 0)
                     return 1;
                 else
-                    return _Denominator;
+                    return _Divider;
             }
             set
             {
                 if (value == 0)
-                    _Denominator = 1;
+                    _Divider = 1;
                 else
-                    _Denominator = value;
+                    _Divider = value;
             }
         }
 
@@ -106,41 +107,41 @@ namespace WpfApp3
                 if (curTextBox.Name == "TextDivPart")
                     DivPart = 0;
                 else if (curTextBox.Name == "TextDivider")
-                    Divider = 0;
+                    Numerator = 0;
                 else if (curTextBox.Name == "TextDenominator")
-                    Denominator = 0;
+                    Divider = 0;
             }
             else
             {
                 if (curTextBox.Name == "TextDivPart")
                     DivPart = int.Parse(curTextBox.Text);
                 else if (curTextBox.Name == "TextDivider")
-                    Divider = int.Parse(curTextBox.Text);
+                    Numerator = int.Parse(curTextBox.Text);
                 else if (curTextBox.Name == "TextDenominator")
-                    Denominator = int.Parse(curTextBox.Text);
+                    Divider = int.Parse(curTextBox.Text);
             }
         }
 
         public void Reset()
         {
             DivPart = 0;
+            Numerator = 0;
             Divider = 0;
-            Denominator = 0;
 
             TextDivPart.Text = "";
+            TextNumerator.Text = "";
             TextDivider.Text = "";
-            TextDenominator.Text = "";
         }
 
-        public void RewriteResult(int divPart, int divider, int denominator)
+        public void RewriteResult(int divPart, int numerator, int divider)
         {
             DivPart = divPart;
+            Numerator = numerator;
             Divider = divider;
-            Denominator = denominator;
 
             TextDivPart.Text = divPart.ToString();
+            TextNumerator.Text = numerator.ToString();
             TextDivider.Text = divider.ToString();
-            TextDenominator.Text = denominator.ToString();
         }
     }
 }

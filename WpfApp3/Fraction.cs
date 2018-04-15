@@ -7,10 +7,10 @@ using static WpfApp3.Calculator;
 
 namespace WpfApp3
 {
-     public class Fraction
+    public class Fraction
     {
-        public static int numerator;              //Числитель
-        public static int divider;          //Знаменатель
+        private int numerator;              //Числитель
+        private int divider;          //Знаменатель
 
         public int Numerator                      //Условие числителя
         {
@@ -19,10 +19,11 @@ namespace WpfApp3
             {
                 if (numerator < 0 && divider < 0)
                 {
-                    numerator = Math.Abs(numerator);
+                    numerator = Math.Abs(value);
                     divider = Math.Abs(divider);
                 }
-                else numerator = value;
+                else
+                    numerator = value;
             }
         }
 
@@ -31,12 +32,12 @@ namespace WpfApp3
             get { return divider; }
             set
             {
-                if (divider == 0)
+                if (value == 0)
                     throw new Exception("Знаменатель не может быть равен нулю!");
                 else if (numerator < 0 && divider < 0)
                 {
                     numerator = Math.Abs(numerator);
-                    divider = Math.Abs(divider);
+                    divider = Math.Abs(value);
                 }
                 else divider = value;
             }
@@ -44,24 +45,22 @@ namespace WpfApp3
 
         public Fraction(int up, int down)       //Конструктор с параметрами
         {
-            numerator = up;
-            divider = down;
+            Numerator = up;
+            Divider = down;
         }
 
         public Fraction()                       //Конструктор без параметров
         {
-            numerator = 0;
-            divider = 1;
+            Numerator = 0;
+            Divider = 1;
         }
 
         public static Fraction operator *(Fraction a, int value) //Оператор умножения дроби на число девосторонний
         {
             Fraction result = a;
-
-            result.Divider *= value;
+            
             result.Numerator *= value;
             Reduction(result);
-
 
             return result;
         }
@@ -69,11 +68,9 @@ namespace WpfApp3
         public static Fraction operator *(int value, Fraction a) //Оператор умножения дроби на число правосторонний
         {
             Fraction result = a;
-
-            result.Divider *= value;
+            
             result.Numerator *= value;
             Reduction(result);
-
 
             return result;
         }
@@ -86,7 +83,6 @@ namespace WpfApp3
             result.Numerator = a.Numerator * b.Numerator;
             Reduction(result);
 
-
             return result;
         }
 
@@ -95,10 +91,10 @@ namespace WpfApp3
             Fraction result = new Fraction();
 
             result.Divider = a.Divider * b.Divider;
-            a *= b.Divider;
-            b *= a.Divider;
-            result.Numerator = a.Numerator + b.Numerator;
+            result.Numerator = a.Numerator * b.Divider + b.Numerator * a.Divider;
+
             Reduction(result);
+
             return result;
         }
 

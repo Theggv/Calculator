@@ -72,6 +72,36 @@ namespace UnitTestProject1
             Assert.AreEqual(true, ok);
         }
 
+        [TestMethod]
+        public void Plus1()
+        {
+            Fraction a = new Fraction(2, 5);
+            Fraction b = new Fraction(7, 8);
+            Fraction res = a + b;
 
+            Assert.AreEqual(res.Numerator, 51);
+            Assert.AreEqual(res.Divider, 40);
+        }
+
+        [TestMethod]
+        public void Plus2()
+        {
+            Fraction a = new Fraction(3, 5);
+            Fraction b = new Fraction(1, 5);
+            Fraction res = a + b;
+
+            Assert.AreEqual(res.Numerator, 4);
+            Assert.AreEqual(res.Divider, 5);
+        }
+        [TestMethod]
+        public void Plus4()
+        {
+            Fraction a = new Fraction(3, 7);
+            Fraction b = new Fraction(1, 7);
+            Fraction res = a + b;
+
+            Assert.AreEqual(res.Divider, 7);
+            Assert.AreEqual(res.Numerator, 4);
+        }
     }
 }

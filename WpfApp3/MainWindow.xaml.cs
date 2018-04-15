@@ -30,6 +30,10 @@ namespace WpfApp3
             _SignForm.ChangeSign(SignForm.SignIndex.Plus);
             EqualForm.ChangeSign(SignForm.SignIndex.Equal);
             _ResultForm.IsReadOnly = true;
+
+            Fraction a = new Fraction(3, 5);
+            Fraction b = new Fraction(1, 5);
+            Fraction res = a + b;
         }
 
         private void Num_Click(object sender, RoutedEventArgs e)
