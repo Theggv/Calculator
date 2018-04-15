@@ -43,16 +43,22 @@ namespace WpfApp3
             }
         }
 
+        public Fraction()                       //Конструктор без параметров
+        {
+            Numerator = 0;
+            Divider = 1;
+        }
+
         public Fraction(int up, int down)       //Конструктор с параметрами
         {
             Numerator = up;
             Divider = down;
         }
 
-        public Fraction()                       //Конструктор без параметров
+        public Fraction(int div, int up, int down)
         {
-            Numerator = 0;
-            Divider = 1;
+            Numerator = div * down + up;
+            Divider = down; ;
         }
 
         public static Fraction operator *(Fraction a, int value) //Оператор умножения дроби на число девосторонний
@@ -103,10 +109,10 @@ namespace WpfApp3
             Fraction result = new Fraction();
 
             result.Divider = a.Divider * b.Divider;
-            a *= b.Divider;
-            b *= a.Divider;
-            result.Numerator = a.Numerator - b.Numerator;
+            result.Numerator = a.Numerator * b.Divider - b.Numerator * a.Divider;
+
             Reduction(result);
+
             return result;
         }
 
@@ -116,11 +122,7 @@ namespace WpfApp3
 
             b = ChangeDomDen(b);
 
-            result.Divider = a.Divider * b.Divider;
-            result.Numerator = a.Numerator * b.Numerator;
-            Reduction(result);
-
-            return result;
+            return a * b;
         }
     }
 }

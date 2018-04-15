@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace WpfApp3
             int c = a.Numerator;
             a.Divider = a.Numerator;
             a.Numerator = c;
+
             return a;
         }
 
@@ -21,6 +23,7 @@ namespace WpfApp3
             a.Numerator = (int)Math.Pow(a.Numerator, exp);
             a.Divider = (int)Math.Pow(a.Divider, exp);
             Reduction(a);
+
             return a;
         }
 
