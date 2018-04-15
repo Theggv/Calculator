@@ -190,6 +190,16 @@ namespace UnitTestProject1
             Assert.AreEqual(div, 17);
         }
 
+        [TestMethod]
+        public void Pow1()
+        {
+            Fraction a = new Fraction(2, 4);
+            a = Calculator.Exponent(a, 3);
+            Assert.AreEqual(a.Divider, 8);
+            Assert.AreEqual(a.Numerator, 1);
+        }
+
+
 
     }
 }

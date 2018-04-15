@@ -93,18 +93,22 @@ namespace WpfApp3
             {
                 case "+":
                     _SignForm.ChangeSign(SignForm.SignIndex.Plus);
+                    calc.Tool = Calculator.Tools.Plus;
                     isBinaryOperation = true;
                     break;
                 case "-":
                     _SignForm.ChangeSign(SignForm.SignIndex.Minus);
+                    calc.Tool = Calculator.Tools.Minus;
                     isBinaryOperation = true;
                     break;
                 case "*":
                     _SignForm.ChangeSign(SignForm.SignIndex.Multi);
+                    calc.Tool = Calculator.Tools.Multi;
                     isBinaryOperation = true;
                     break;
                 case "/":
                     _SignForm.ChangeSign(SignForm.SignIndex.Divide);
+                    calc.Tool = Calculator.Tools.Divide;
                     isBinaryOperation = true;
                     break;
             }
@@ -134,38 +138,21 @@ namespace WpfApp3
 
         private void Equal_Click_1(object sender, RoutedEventArgs e)
         {
+            Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Divider, _FirstForm.Denominator);
+            calc.A = A;
             if (isBinaryOperation)
             {
-                Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Divider, _FirstForm.Denominator);
-                calc.A = A;
                 Fraction B = new Fraction(_SecondForm.DivPart, _SecondForm.Divider, _SecondForm.Denominator);
                 calc.B = B;
+            }                      
+            if (_IsExp) { calc.Tool = Calculator.Tools.Exp; calc.Exp = _ExpForm.Digit; }
+            if (_IsChange) { calc.Tool = Calculator.Tools.Change; }
+            if (_IsRed) { calc.Tool = Calculator.Tools.Red; }
+            calc.Res = calc.Calculation();
 
-                switch (operation)
-                {
-                    case "+":
-                        calc.Tool = Calculator.Tools.Plus;
-                        break;
-                    case "-":
-                        calc.Tool = Calculator.Tools.Plus;
-                        break;
-                    case "/":
-                        calc.Tool = Calculator.Tools.Plus;
-                        break;
-                    case "*":
-                        calc.Tool = Calculator.Tools.Plus;
-                        break;
-                }
-
-                if (_IsExp) { calc.Tool = Calculator.Tools.Exp; calc.Exp = _ExpForm.Digit; }
-                if (_IsChange) { calc.Tool = Calculator.Tools.Change; }
-                if (_IsRed) { calc.Tool = Calculator.Tools.Red; }
-                calc.Res = calc.Calculation();
-
-                _ResultForm.RewriteResult(Calculator.AllocateDivPart(calc.Res), 
-                    calc.Res.Numerator - Calculator.AllocateDivPart(calc.Res)*calc.Res.Divider, 
-                    calc.Res.Divider );
-            }
+            _ResultForm.RewriteResult(Calculator.AllocateDivPart(calc.Res),
+                Math.Abs(calc.Res.Numerator - Calculator.AllocateDivPart(calc.Res) * calc.Res.Divider),
+                calc.Res.Divider);
         }
     }
 }
