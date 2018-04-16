@@ -9,10 +9,10 @@ namespace WpfApp3
 {
     public class Fraction
     {
-        private int numerator;              //Числитель
-        private int divider;          //Знаменатель
+        private long numerator;              //Числитель
+        private long divider;          //Знаменатель
 
-        public int Numerator                      //Условие числителя
+        public long Numerator                      //Условие числителя
         {
             get { return numerator; }
             set
@@ -27,7 +27,7 @@ namespace WpfApp3
             }
         }
 
-        public int Divider                  //Условие знаменателя
+        public long Divider                  //Условие знаменателя
         {
             get { return divider; }
             set
@@ -49,13 +49,13 @@ namespace WpfApp3
             Divider = 1;
         }
 
-        public Fraction(int up, int down)       //Конструктор с параметрами
+        public Fraction(long up, long down)       //Конструктор с параметрами
         {
             Numerator = up;
             Divider = down;
         }
 
-        public Fraction(int div, int up, int down)
+        public Fraction(long div, long up, long down)
         {
             Numerator = div * down + up;
             Divider = down; ;

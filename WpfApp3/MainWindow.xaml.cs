@@ -22,6 +22,12 @@ namespace WpfApp3
     {
         private DigitForm _ExpForm;
         private bool _IsExp = false;
+       
+        static string operation;
+        static bool isBinaryOperation;
+        private bool _IsChange = false;
+        private bool _IsRed = false;
+        static Calculator calc = new Calculator();
 
         public DigitForm ExpForm
         {
@@ -35,6 +41,7 @@ namespace WpfApp3
 
             _SignForm.ChangeSign(SignForm.SignIndex.Plus);
             EqualForm.ChangeSign(SignForm.SignIndex.Equal);
+            isBinaryOperation = true;
             _ResultForm.IsReadOnly = true;
         }
 
@@ -70,15 +77,23 @@ namespace WpfApp3
             {
                 case "+":
                     _SignForm.ChangeSign(SignForm.SignIndex.Plus);
+                    calc.Tool = Calculator.Tools.Plus;
+                    isBinaryOperation = true;
                     break;
                 case "-":
                     _SignForm.ChangeSign(SignForm.SignIndex.Minus);
+                    calc.Tool = Calculator.Tools.Minus;
+                    isBinaryOperation = true;
                     break;
                 case "*":
                     _SignForm.ChangeSign(SignForm.SignIndex.Multi);
+                    calc.Tool = Calculator.Tools.Multi;
+                    isBinaryOperation = true;
                     break;
                 case "/":
                     _SignForm.ChangeSign(SignForm.SignIndex.Divide);
+                    calc.Tool = Calculator.Tools.Divide;
+                    isBinaryOperation = true;
                     break;
             }
         }
@@ -86,6 +101,39 @@ namespace WpfApp3
         private void Exp_Click(object sender, RoutedEventArgs e)
         {
             Add_ExpForm();
+        }
+
+        private void Red_Click(object sender, RoutedEventArgs e)
+        {
+            MainGrid.Children.Remove(_SecondForm);
+            isBinaryOperation = false;
+            _IsRed = true;
+        }
+
+        private void Change_Click(object sender, RoutedEventArgs e)
+        {
+            MainGrid.Children.Remove(_SecondForm);
+            isBinaryOperation = false;
+            _IsChange = true;
+
+        }
+        private void Equal_Click(object sender, RoutedEventArgs e)
+        {
+            Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Divider, _FirstForm.Denominator);
+            calc.A = A;
+            if (isBinaryOperation)
+            {
+                Fraction B = new Fraction(_SecondForm.DivPart, _SecondForm.Divider, _SecondForm.Denominator);
+                calc.B = B;
+            }
+            if (_IsExp) { calc.Tool = Calculator.Tools.Exp; calc.Exp = _ExpForm.Digit; }
+            if (_IsChange) { calc.Tool = Calculator.Tools.Change; }
+            if (_IsRed) { calc.Tool = Calculator.Tools.Red; }
+            calc.Res = calc.Calculation();
+
+            _ResultForm.RewriteResult(Calculator.AllocateDivPart(calc.Res),
+                Math.Abs(calc.Res.Numerator - Calculator.AllocateDivPart(calc.Res) * calc.Res.Divider),
+                calc.Res.Divider);
         }
 
         public void Add_ExpForm()
@@ -125,11 +173,6 @@ namespace WpfApp3
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             Calculator.CancelOperation(this);
-        }
-
-        private void _FirstForm_LostFocus(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

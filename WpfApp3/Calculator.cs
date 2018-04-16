@@ -12,6 +12,76 @@ namespace WpfApp3
         private const int _NUMCANCELS = 15;
         public static Stack<OperationInfo> _Stack = new Stack<OperationInfo>(_NUMCANCELS);
 
+        static Fraction a;
+        static Fraction b;
+        static Fraction res;
+        public enum Tools { Plus, Minus, Multi, Divide, Exp, Change, Red }
+        static Tools tool;
+        static int exp;
+        public Tools Tool
+        {
+            get => tool;
+            set => tool = value;
+        }
+        public Fraction A
+        {
+            get => a;
+            set => a = value;
+        }
+        public Fraction B
+        {
+            get => b;
+            set => b = value;
+        }
+        public Fraction Res
+        {
+            get => res;
+            set => res = value;
+        }
+
+        public int Exp
+        {
+            get => exp;
+            set => exp = value;
+        }
+
+        public Fraction Calculation()
+        {
+            res = new Fraction();
+            switch (tool)
+            {
+                case Tools.Divide:
+                    res = a / b;
+                    break;
+                case Tools.Minus:
+                    res = a - b;
+                    break;
+                case Tools.Plus:
+                    res = a + b;
+                    break;
+                case Tools.Multi:
+                    res = a * b;
+                    break;
+                case Tools.Exp:
+                    res = Exponent(a, exp);
+                    break;
+                case Tools.Change:
+                    res = ChangeDomDen(a);
+                    break;
+                case Tools.Red:
+                    res = Reduction(a);
+                    break;
+            }
+            return res;
+        }
+
+
+        public Calculator()
+        {
+            A = new Fraction();
+            B = new Fraction();
+        }
+
         public static void AddOperation(Fraction firstForm, SignForm.SignIndex sign, Fraction secondForm, Fraction result, int digit)
         {
             _Stack.Push(new OperationInfo(firstForm, sign, secondForm, result, digit));
@@ -55,6 +125,10 @@ namespace WpfApp3
                 mainWindow._ResultForm.RewriteResult(result.Numerator / result.Divider,
                     result.Numerator, result.Divider);
             }
+        }
+        public static long AllocateDivPart(Fraction a)
+        {
+            return a.Numerator / a.Divider;
         }
 
         public static Fraction ChangeDomDen(Fraction a) //Change places of devider an Numerator
