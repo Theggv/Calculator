@@ -153,25 +153,29 @@ namespace WpfApp3
 
         public void RewriteResult(long numerator, long divider)
         {
+            // Сделать знаменатель положительным
             if ((numerator < 0 && divider < 0) || divider < 0)
             {
                 numerator *= -1;
                 divider *= -1;
             }
 
+            // Выделить целую часть
             long divPart = numerator / divider;
-
-
+            
             DivPart = divPart;
             Numerator = numerator % divider;
             Divider = divider;
 
-            if (Numerator < 0)
+            // Привести дробь к нормальному виду с единственным минусом, если
+            // целая часть больше нуля
+            if (Numerator < 0 && DivPart > 0 )
             {
                 DivPart -= 1;
                 Numerator += Divider;
             }
 
+            // Записать в форму целую часть
             if (_DivPart != 0)
                 TextDivPart.Text = DivPart.ToString();
             else
@@ -182,6 +186,11 @@ namespace WpfApp3
                     TextDivPart.Text = "";
             }
 
+            // Убрать минус у числителя
+            if (Numerator < 0)
+                Numerator *= -1;
+
+            // Записать в форму числитель и знаменатель
             if (Numerator == 0 || (Numerator == 1 && Divider == 1))
             {
                 TextNumerator.Text = "";
