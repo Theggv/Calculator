@@ -20,9 +20,9 @@ namespace WpfApp3
     /// </summary>
     public partial class FractionForm : UserControl
     {
-        private long _DivPart;
-        private long _Numerator;
-        private long _Divider;
+        private long _DivPart; // Целая часть
+        private long _Numerator; // Числитель
+        private long _Divider; // Знаменатель
 
         private bool _IsReadOnly;
 
@@ -106,18 +106,18 @@ namespace WpfApp3
             {
                 if (curTextBox.Name == "TextDivPart")
                     DivPart = 0;
-                else if (curTextBox.Name == "TextDivider")
+                else if (curTextBox.Name == "TextNumerator")
                     Numerator = 0;
-                else if (curTextBox.Name == "TextDenominator")
+                else if (curTextBox.Name == "TextDivider")
                     Divider = 0;
             }
             else
             {
                 if (curTextBox.Name == "TextDivPart")
                     DivPart = int.Parse(curTextBox.Text);
-                else if (curTextBox.Name == "TextDivider")
+                else if (curTextBox.Name == "TextNumerator")
                     Numerator = int.Parse(curTextBox.Text);
-                else if (curTextBox.Name == "TextDenominator")
+                else if (curTextBox.Name == "TextDivider")
                     Divider = int.Parse(curTextBox.Text);
             }
         }
@@ -133,15 +133,39 @@ namespace WpfApp3
             TextDivider.Text = "";
         }
 
-        public void RewriteResult(int divPart, int numerator, int divider)
+        public void RewriteResult(long numerator, long divider)
         {
+            if (numerator < 0 && divider < 0)
+            {
+                numerator *= -1;
+                divider *= -1;
+            }
+
+            long divPart = numerator / divider;
+
             DivPart = divPart;
-            Numerator = numerator;
+            Numerator = numerator % divider;
             Divider = divider;
 
-            TextDivPart.Text = divPart.ToString();
-            TextNumerator.Text = numerator.ToString();
-            TextDivider.Text = divider.ToString();
+            if (_DivPart != 0)
+                TextDivPart.Text = DivPart.ToString();
+            else
+                TextDivPart.Text = "";
+
+            if (Numerator == 0 || (Numerator == 1 && Divider == 1))
+            {
+                TextNumerator.Text = "";
+                TextDivider.Text = "";
+
+                return;
+            }
+            
+            TextNumerator.Text = Numerator.ToString();
+
+            if (_Divider != 1)
+                TextDivider.Text = Divider.ToString();
+            else
+                TextDivider.Text = "";
         }
     }
 }

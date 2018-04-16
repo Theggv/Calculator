@@ -33,13 +33,14 @@ namespace WpfApp3
             set
             {
                 if (value == 0)
-                    throw new Exception("Знаменатель не может быть равен нулю!");
+                    divider = 1;
                 else if (numerator < 0 && value < 0)
                 {
                     numerator = Math.Abs(numerator);
                     divider = Math.Abs(value);
                 }
-                else divider = value;
+                else
+                    divider = value;
             }
         }
 

@@ -20,6 +20,7 @@ namespace WpfApp3
     /// </summary>
     public partial class SignForm : UserControl
     {
+        private SignIndex _Sign;
         public enum SignIndex
         {
             Null = 0,
@@ -30,14 +31,17 @@ namespace WpfApp3
             Equal,
             Exp
         }
+
+        public SignIndex GetSign { get => _Sign; }
+
         public SignForm()
         {
             InitializeComponent();
         }
 
-
         public void ChangeSign(SignIndex index)
         {
+            _Sign = index;
             switch (index)
             {
                 case SignIndex.Plus:

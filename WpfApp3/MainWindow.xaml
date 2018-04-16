@@ -47,7 +47,7 @@
         <Button x:Name="Exchange" Grid.Row="4" Grid.Column="2" Content="Obmen" FontSize="16" FontWeight="Bold" Click="Change_Click"/>
         
         <Button x:Name="ChangeSign" Grid.Row="5" Grid.Column="2" Content="+/-" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="Equal" Grid.Row="6" Grid.Column="2" Content="=" FontSize="16" FontWeight="Bold" Click="Equal_Click_1"/>
+        <Button x:Name="Equal" Grid.Row="6" Grid.Column="2" Content="=" FontSize="16" FontWeight="Bold" Click="Equal_Click"/>
 
         <Button x:Name="B1" Grid.Row="4" Grid.Column="3" Content="1" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
         <Button x:Name="B2" Grid.Row="4" Grid.Column="4" Content="2" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>

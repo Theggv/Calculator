@@ -16,46 +16,22 @@ namespace WpfApp3
         private Fraction _Result;
 
         public Fraction FirstForm { get => _FirstForm; }
+
         public Fraction SecondForm { get => _SecondFrom; }
-        public int Digit { get => _Digit; }
+
+        public long Digit { get => _Digit; }
+
         public SignForm.SignIndex Sign { get => _Sign; }
+
         public Fraction ResultForm { get => _Result; }
 
-        public OperationInfo(Fraction firstForm, SignForm.SignIndex sign)
-        {
-            _FirstForm = firstForm;
-            _Sign = sign;
-        }
-
-        public OperationInfo(Fraction firstForm, SignForm.SignIndex sign, Fraction secondForm)
-        {
-            _FirstForm = firstForm;
-            _Sign = sign;
-            _SecondFrom = secondForm;
-        }
-
-        public OperationInfo(Fraction firstForm, SignForm.SignIndex sign, int digit)
-        {
-            _FirstForm = firstForm;
-            _Sign = sign;
-            _Digit = digit;
-        }
-
-        public OperationInfo(Fraction firstForm, SignForm.SignIndex sign, Fraction secondForm, Fraction result, int digit)
+        public OperationInfo(Fraction firstForm, SignForm.SignIndex sign, Fraction secondForm, Fraction result, long digit)
         {
             _FirstForm = firstForm;
             _Sign = sign;
             _SecondFrom = secondForm;
             _Result = result;
             _Digit = digit;
-        }
-
-        public OperationInfo(Fraction firstForm, SignForm.SignIndex sign, int digit, Fraction result)
-        {
-            _FirstForm = firstForm;
-            _Sign = sign;
-            _Digit = digit;
-            _Result = result;
         }
     }
 }

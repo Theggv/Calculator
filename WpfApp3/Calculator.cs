@@ -17,7 +17,7 @@ namespace WpfApp3
         static Fraction res;
         public enum Tools { Plus, Minus, Multi, Divide, Exp, Change, Red }
         static Tools tool;
-        static int exp;
+        static long exp;
         public Tools Tool
         {
             get => tool;
@@ -39,7 +39,7 @@ namespace WpfApp3
             set => res = value;
         }
 
-        public int Exp
+        public long Exp
         {
             get => exp;
             set => exp = value;
@@ -82,13 +82,21 @@ namespace WpfApp3
             B = new Fraction();
         }
 
-        public static void AddOperation(Fraction firstForm, SignForm.SignIndex sign, Fraction secondForm, Fraction result, int digit)
+        public static void AddOperation(Fraction firstForm, SignForm.SignIndex sign, Fraction secondForm, Fraction result, long digit)
         {
             _Stack.Push(new OperationInfo(firstForm, sign, secondForm, result, digit));
         }
 
         public static void CancelOperation(MainWindow mainWindow)
         {
+            if (_Stack.Count == 0)
+                return;
+
+            //_Stack.Pop();
+
+            if (_Stack.Count == 0)
+                return;
+
             var operInfo = _Stack.Pop();
 
             if (operInfo.Sign == SignForm.SignIndex.Exp)
@@ -96,34 +104,29 @@ namespace WpfApp3
                 mainWindow.Add_ExpForm();
 
                 var firstForm = operInfo.FirstForm;
-                mainWindow._FirstForm.RewriteResult(firstForm.Numerator / firstForm.Divider,
-                    firstForm.Numerator, firstForm.Divider);
+                mainWindow._FirstForm.RewriteResult(firstForm.Numerator, firstForm.Divider);
 
                 mainWindow._SignForm.ChangeSign(operInfo.Sign);
 
                 mainWindow.ExpForm.Rewrite_Result(operInfo.Digit);
 
                 var result = operInfo.ResultForm;
-                mainWindow._ResultForm.RewriteResult(result.Numerator / result.Divider,
-                    result.Numerator, result.Divider);
+                mainWindow._ResultForm.RewriteResult(result.Numerator, result.Divider);
             }
             else
             {
                 mainWindow.Remove_ExpForm();
 
                 var firstForm = operInfo.FirstForm;
-                mainWindow._FirstForm.RewriteResult(firstForm.Numerator / firstForm.Divider,
-                    firstForm.Numerator, firstForm.Divider);
+                mainWindow._FirstForm.RewriteResult(firstForm.Numerator, firstForm.Divider);
 
                 mainWindow._SignForm.ChangeSign(operInfo.Sign);
 
                 var secondForm = operInfo.SecondForm;
-                mainWindow._FirstForm.RewriteResult(secondForm.Numerator / secondForm.Divider,
-                    secondForm.Numerator, secondForm.Divider);
+                mainWindow._FirstForm.RewriteResult(secondForm.Numerator, secondForm.Divider);
 
                 var result = operInfo.ResultForm;
-                mainWindow._ResultForm.RewriteResult(result.Numerator / result.Divider,
-                    result.Numerator, result.Divider);
+                mainWindow._ResultForm.RewriteResult(result.Numerator, result.Divider);
             }
         }
         public static long AllocateDivPart(Fraction a)
@@ -133,17 +136,17 @@ namespace WpfApp3
 
         public static Fraction ChangeDomDen(Fraction a) //Change places of devider an Numerator
         {
-            int c = a.Numerator;
+            long c = a.Numerator;
             a.Divider = a.Numerator;
             a.Numerator = c;
 
             return a;
         }
 
-        public static Fraction Exponent(Fraction a, int exp)
+        public static Fraction Exponent(Fraction a, long exp)
         {
-            a.Numerator = (int)Math.Pow(a.Numerator, exp);
-            a.Divider = (int)Math.Pow(a.Divider, exp);
+            a.Numerator = (long)Math.Pow(a.Numerator, exp);
+            a.Divider = (long)Math.Pow(a.Divider, exp);
             Reduction(a);
 
             return a;
@@ -151,9 +154,9 @@ namespace WpfApp3
 
         public static Fraction Reduction(Fraction fr)
         {
-            int nod = 0, beg; bool ok = false;  
-            int a = Math.Abs(fr.Numerator);
-            int b = Math.Abs(fr.Divider);
+            long nod = 0, beg; bool ok = false;  
+            long a = Math.Abs(fr.Numerator);
+            long b = Math.Abs(fr.Divider);
 
             while (a != 0 && b != 0)
                 if (a >= b) a %= b;
