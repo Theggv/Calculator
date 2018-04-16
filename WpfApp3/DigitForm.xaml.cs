@@ -63,7 +63,6 @@ namespace WpfApp3
         public void Reset()
         {
             Digit = 0;
-
             NumberTextBox.Text = "";
         }
 

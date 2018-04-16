@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using System.Runtime.longeropServices;
 
 [assembly: AssemblyTitle("UnitTestProject1")]
 [assembly: AssemblyDescription("")]

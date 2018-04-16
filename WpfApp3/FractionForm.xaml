@@ -17,9 +17,9 @@
         </Grid.ColumnDefinitions>
         <TextBox x:Name="TextDivPart" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" 
                  TextAlignment="Right" VerticalAlignment="Center" FontSize="16" MaxLength="16" PreviewKeyDown="TextBox_InputFilter" KeyUp="TextBox_KeyUp"/>
-        <TextBox x:Name="TextNumerator" Grid.Row="0" Grid.Column="1" 
+        <TextBox x:Name="TextDivider" Grid.Row="0" Grid.Column="1" 
                  VerticalAlignment="Bottom" FontSize="16" TextAlignment="Center" MaxLength="16" PreviewKeyDown="TextBox_InputFilter" KeyUp="TextBox_KeyUp"/>
-        <TextBox x:Name="TextDivider" Grid.Row="2" Grid.Column="1" 
+        <TextBox x:Name="TextNumerator" Grid.Row="2" Grid.Column="1" 
                  VerticalAlignment="Top" FontSize="16" TextAlignment="Center" MaxLength="16" PreviewKeyDown="TextBox_InputFilter" KeyUp="TextBox_KeyUp"/>
         <Rectangle Grid.Row="2" Grid.Column="2" Height="1" VerticalAlignment="Top" Fill="Black"/>
     </Grid>

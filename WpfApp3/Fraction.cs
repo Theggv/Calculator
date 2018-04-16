@@ -17,7 +17,7 @@ namespace WpfApp3
             get { return numerator; }
             set
             {
-                if (numerator < 0 && divider < 0)
+                if (value < 0 && divider < 0)
                 {
                     numerator = Math.Abs(value);
                     divider = Math.Abs(divider);
@@ -34,7 +34,7 @@ namespace WpfApp3
             {
                 if (value == 0)
                     throw new Exception("Знаменатель не может быть равен нулю!");
-                else if (numerator < 0 && divider < 0)
+                else if (numerator < 0 && value < 0)
                 {
                     numerator = Math.Abs(numerator);
                     divider = Math.Abs(value);
@@ -58,10 +58,10 @@ namespace WpfApp3
         public Fraction(long div, long up, long down)
         {
             Numerator = div * down + up;
-            Divider = down; ;
+            Divider = down; 
         }
 
-        public static Fraction operator *(Fraction a, int value) //Оператор умножения дроби на число девосторонний
+        public static Fraction operator *(Fraction a, long value) //Оператор умножения дроби на число девосторонний
         {
             Fraction result = a;
             
@@ -71,7 +71,7 @@ namespace WpfApp3
             return result;
         }
 
-        public static Fraction operator *(int value, Fraction a) //Оператор умножения дроби на число правосторонний
+        public static Fraction operator *(long value, Fraction a) //Оператор умножения дроби на число правосторонний
         {
             Fraction result = a;
             
