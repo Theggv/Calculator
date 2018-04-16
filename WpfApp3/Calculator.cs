@@ -97,7 +97,7 @@ namespace WpfApp3
             if (_Stack.Count == 0)
                 return;
 
-            var operInfo = _Stack.Seek();
+            var operInfo = _Stack.Peek();
 
             if (operInfo.Sign == SignForm.SignIndex.Exp)
             {
