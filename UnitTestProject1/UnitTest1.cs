@@ -154,7 +154,7 @@ namespace UnitTestProject1
         public void Allocate1()
         {
             Fraction a = new Fraction(2, 3);
-            int div = Calculator.AllocateDivPart(a);
+            long div = Calculator.AllocateDivPart(a);
             Assert.AreEqual(div, 0);
         }
 
@@ -162,7 +162,7 @@ namespace UnitTestProject1
         public void Allocate2()
         {
             Fraction a = new Fraction(3, 3);
-            int div = Calculator.AllocateDivPart(a);
+            long div = Calculator.AllocateDivPart(a);
             Assert.AreEqual(div, 1);
         }
 
@@ -170,7 +170,7 @@ namespace UnitTestProject1
         public void Allocate3()
         {
             Fraction a = new Fraction(4, 3);
-            int div = Calculator.AllocateDivPart(a);
+            long div = Calculator.AllocateDivPart(a);
             Assert.AreEqual(div, 1);
         }
 
@@ -178,7 +178,7 @@ namespace UnitTestProject1
         public void Allocate4()
         {
             Fraction a = new Fraction(80, 16);
-            int div = Calculator.AllocateDivPart(a);
+            long div = Calculator.AllocateDivPart(a);
             Assert.AreEqual(div, 5);
         }
 
@@ -186,7 +186,7 @@ namespace UnitTestProject1
         public void Allocate5()
         {
             Fraction a = new Fraction(17,4,7);
-            int div = Calculator.AllocateDivPart(a);
+            long div = Calculator.AllocateDivPart(a);
             Assert.AreEqual(div, 17);
         }
 

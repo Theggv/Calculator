@@ -20,24 +20,24 @@ namespace WpfApp3
     /// </summary>
     public partial class FractionForm : UserControl
     {
-        private int _DivPart;
-        private int _Divider;
-        private int _Denominator;
+        private long _DivPart;
+        private long _Divider;
+        private long _Denominator;
         private bool _IsReadOnly;
 
-        public int DivPart
+        public long DivPart
         {
             get => _DivPart;
             set => _DivPart = value;
         }
 
-        public int Divider
+        public long Divider
         {
             get => _Divider;
             set => _Divider = value;
         }
 
-        public int Denominator
+        public long Denominator
         {
             get
             {
@@ -113,11 +113,11 @@ namespace WpfApp3
             else
             {
                 if (curTextBox.Name == "TextDivPart")
-                    DivPart = int.Parse(curTextBox.Text);
+                    DivPart = long.Parse(curTextBox.Text);
                 else if (curTextBox.Name == "TextDivider")
-                    Divider = int.Parse(curTextBox.Text);
+                    Divider = long.Parse(curTextBox.Text);
                 else if (curTextBox.Name == "TextNumerator")
-                    Denominator = int.Parse(curTextBox.Text);
+                    Denominator = long.Parse(curTextBox.Text);
             }
         }
 
@@ -132,7 +132,7 @@ namespace WpfApp3
             TextNumerator.Text = "";
         }
 
-        public void RewriteResult(int divPart, int divider, int denominator)
+        public void RewriteResult(long divPart, long divider, long denominator)
         {
             DivPart = divPart;
             Divider = divider;

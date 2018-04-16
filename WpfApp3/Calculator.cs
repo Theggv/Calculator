@@ -71,14 +71,14 @@ namespace WpfApp3
             return res;
         }
 
-        public static int AllocateDivPart(Fraction a)
+        public static long AllocateDivPart(Fraction a)
         {
             return a.Numerator / a.Divider;
         }
 
         public static Fraction ChangeDomDen(Fraction a) //Change places of devider an Numerator
         {
-            int c = a.Numerator;
+            long c = a.Numerator;
             a.Divider = a.Numerator;
             a.Numerator = c;            
             return a;
@@ -94,9 +94,9 @@ namespace WpfApp3
 
         public static Fraction Reduction(Fraction fr)
         {
-            int nod = 0, beg; bool ok = false;  
-            int a = Math.Abs(fr.Numerator);
-            int b = Math.Abs(fr.Divider);
+            long nod = 0, beg; bool ok = false;  
+            long a = Math.Abs(fr.Numerator);
+            long b = Math.Abs(fr.Divider);
 
             while (a > 0 && b > 0)
                 if (a >= b) a %= b;
