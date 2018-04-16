@@ -92,7 +92,7 @@ namespace WpfApp3
             if (_Stack.Count == 0)
                 return;
 
-            //_Stack.Pop();
+            _Stack.Pop();
 
             if (_Stack.Count == 0)
                 return;
@@ -123,7 +123,7 @@ namespace WpfApp3
                 mainWindow._SignForm.ChangeSign(operInfo.Sign);
 
                 var secondForm = operInfo.SecondForm;
-                mainWindow._FirstForm.RewriteResult(secondForm.Numerator, secondForm.Divider);
+                mainWindow._SecondForm.RewriteResult(secondForm.Numerator, secondForm.Divider);
 
                 var result = operInfo.ResultForm;
                 mainWindow._ResultForm.RewriteResult(result.Numerator, result.Divider);
