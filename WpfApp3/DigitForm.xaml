@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="150">
     <Grid>
-        <TextBox x:Name="NumberTextBox" TextAlignment="Center" VerticalAlignment="Center" MaxLength="16" FontSize="16" KeyDown="TextBox_InputFilter"/>
+        <TextBox x:Name="NumberTextBox" TextAlignment="Center" VerticalAlignment="Center" MaxLength="16" FontSize="16" KeyDown="TextBox_InputFilter" KeyUp="TextBox_BlockSpace"/>
     </Grid>
 </UserControl>

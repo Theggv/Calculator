@@ -20,38 +20,46 @@ namespace WpfApp3
     /// </summary>
     public partial class FractionForm : UserControl
     {
-        private int _DivPart;
-        private int _Divider;
-        private int _Denominator;
+        private long _DivPart; // Целая часть
+        private long _Numerator; // Числитель
+        private long _Divider; // Знаменатель
+
+        private bool _IsNegative;
         private bool _IsReadOnly;
 
-        public int DivPart
+        public long DivPart
         {
             get => _DivPart;
             set => _DivPart = value;
         }
 
-        public int Divider
-        {
-            get => _Divider;
-            set => _Divider = value;
-        }
-
-        public int Denominator
+        public long Numerator
         {
             get
             {
-                if (_Denominator == 0)
+                if (_IsNegative)
+                    return _Numerator * -1;
+                else
+                    return _Numerator;
+            }
+            set => _Numerator = value;
+        }
+
+        public long Divider
+        {
+            get
+            {
+                if (_Divider == 0)
                     return 1;
                 else
-                    return _Denominator;
+                    return _Divider;
             }
             set
             {
                 if (value == 0)
-                    _Denominator = 1;
+                    _Divider = 1;
                 else
-                    _Denominator = value;
+                    _Divider = value;
             }
         }
 
@@ -76,7 +84,8 @@ namespace WpfApp3
 
             List<Key> validKeys = new List<Key>
             {
-                Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7, Key.D8, Key.D9, Key.OemMinus, Key.Back
+                Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7,
+                Key.D8, Key.D9, Key.OemMinus, Key.Back, Key.Left, Key.Right
             };
             if (validKeys.Contains(e.Key))
             {
@@ -99,37 +108,103 @@ namespace WpfApp3
             var curTextBox = sender as TextBox;
 
             if (curTextBox.Text == "-")
+            {
+                if(curTextBox.Name == "TextDivPart")
+                    _IsNegative = true;
                 return;
+            }
 
             if (curTextBox.Text == "")
             {
                 if (curTextBox.Name == "TextDivPart")
+                {
                     DivPart = 0;
+                    _IsNegative = false;
+                }
+                else if (curTextBox.Name == "TextNumerator")
+                    Numerator = 0;
                 else if (curTextBox.Name == "TextDivider")
                     Divider = 0;
-                else if (curTextBox.Name == "TextDenominator")
-                    Denominator = 0;
             }
             else
             {
                 if (curTextBox.Name == "TextDivPart")
+                {
                     DivPart = int.Parse(curTextBox.Text);
+                    _IsNegative = false;
+                }
+                else if (curTextBox.Name == "TextNumerator")
+                    Numerator = int.Parse(curTextBox.Text);
                 else if (curTextBox.Name == "TextDivider")
                     Divider = int.Parse(curTextBox.Text);
-                else if (curTextBox.Name == "TextDenominator")
-                    Denominator = int.Parse(curTextBox.Text);
             }
         }
 
         public void Reset()
         {
             DivPart = 0;
+            Numerator = 0;
             Divider = 0;
-            Denominator = 0;
 
             TextDivPart.Text = "";
-            TextDivider.Text = "";
             TextNumerator.Text = "";
+            TextDivider.Text = "";
+        }
+
+        public void RewriteResult(long numerator, long divider)
+        {
+            // Сделать знаменатель положительным
+            if ((numerator < 0 && divider < 0) || divider < 0)
+            {
+                numerator *= -1;
+                divider *= -1;
+            }
+
+            // Выделить целую часть
+            long divPart = numerator / divider;
+            
+            DivPart = divPart;
+            Numerator = numerator % divider;
+            Divider = divider;
+
+            // Привести дробь к нормальному виду с единственным минусом, если
+            // целая часть больше нуля
+            if (Numerator < 0 && DivPart > 0 )
+            {
+                DivPart -= 1;
+                Numerator += Divider;
+            }
+
+            // Записать в форму целую часть
+            if (_DivPart != 0)
+                TextDivPart.Text = DivPart.ToString();
+            else
+            {
+                if (Numerator * Divider < 0)
+                    TextDivPart.Text = "-";
+                else
+                    TextDivPart.Text = "";
+            }
+
+            // Убрать минус у числителя
+            if (Numerator < 0)
+                Numerator *= -1;
+
+            // Записать в форму числитель и знаменатель
+            if (Numerator == 0 || (Numerator == 1 && Divider == 1))
+            {
+                TextNumerator.Text = "";
+                TextDivider.Text = "";
+
+                return;
+            }
+            
+            TextNumerator.Text = Numerator.ToString();
+
+            if (_Divider != 1)
+                TextDivider.Text = Divider.ToString();
+            else
+                TextDivider.Text = "";
         }
     }
 }

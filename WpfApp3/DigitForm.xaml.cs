@@ -20,9 +20,9 @@ namespace WpfApp3
     /// </summary>
     public partial class DigitForm : UserControl
     {
-        private int _Digit;
+        private long _Digit;
 
-        public int Digit
+        public long Digit
         {
             get => _Digit;
             set => _Digit = value;
@@ -63,8 +63,14 @@ namespace WpfApp3
         public void Reset()
         {
             Digit = 0;
-
             NumberTextBox.Text = "";
+        }
+
+        public void Rewrite_Result(long digit)
+        {
+            Digit = digit;
+
+            NumberTextBox.Text = digit.ToString();
         }
     }
 }

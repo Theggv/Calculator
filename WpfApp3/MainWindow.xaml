@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="640">
+        Title="MainWindow" Height="480" Width="640" KeyDown="MainWindow_KeyDown">
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
@@ -24,25 +24,25 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        
         <local:FractionForm x:Name="_FirstForm" Grid.Row="1" Grid.Column="2"/>
         <local:FractionForm x:Name="_SecondForm" Grid.Row="1" Grid.Column="4"/>
         <local:SignForm x:Name="_SignForm" Grid.Row="1" Grid.Column="3"/>
-
         <local:FractionForm x:Name="_ResultForm" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"/>
 
         <Border x:Name="ResultBorder" Grid.Row="2" Grid.ColumnSpan="6" BorderThickness="1" BorderBrush="Black" Margin="-1"/>
-
         <local:SignForm x:Name="EqualForm" Grid.Row="2" Grid.Column="3"/>
 
         <Button x:Name="Reset" Grid.Row="3" Grid.Column="0" Content="Reset" FontSize="16" FontWeight="Bold" Click="Reset_Click"/>
-        <Button x:Name="Cancel" Grid.Row="3" Grid.Column="1" Content="Cancel" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="Cancel" Grid.Row="3" Grid.Column="1" Content="Cancel" FontSize="16" FontWeight="Bold" Click="Cancel_Click"/>
         <Button x:Name="Plus" Grid.Row="5" Grid.Column="0" Content="+" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
         <Button x:Name="Minus" Grid.Row="6" Grid.Column="0" Content="-" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
         <Button x:Name="Multiplication" Grid.Row="5" Grid.Column="1" Content="*" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
         <Button x:Name="Divide" Grid.Row="6" Grid.Column="1" Content="/" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
-        <Button x:Name="Exponentiation" Grid.Row="4" Grid.Column="0" Content="x^n" FontSize="16" FontWeight="Bold" Click="Sign_Click"/>
-        <Button x:Name="Reduction" Grid.Row="4" Grid.Column="1" Content="Sokrashenie" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="Exchange" Grid.Row="4" Grid.Column="2" Content="Obmen" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="Exponentiation" Grid.Row="4" Grid.Column="0" Content="x^n" FontSize="16" FontWeight="Bold" Click="Exp_Click"/>
+
+        <Button x:Name="Reduction" Grid.Row="4" Grid.Column="1" Content="Sokrashenie" FontSize="16" FontWeight="Bold" Click="Red_Click"/>
+        <Button x:Name="Exchange" Grid.Row="4" Grid.Column="2" Content="Obmen" FontSize="16" FontWeight="Bold" Click="Change_Click"/>
         <Button x:Name="ChangeSign" Grid.Row="5" Grid.Column="2" Content="+/-" FontSize="16" FontWeight="Bold"/>
         <Button x:Name="Equal" Grid.Row="6" Grid.Column="2" Content="=" FontSize="16" FontWeight="Bold" Click="Equal_Click"/>
 

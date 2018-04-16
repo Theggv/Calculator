@@ -7,130 +7,126 @@ using static WpfApp3.Calculator;
 
 namespace WpfApp3
 {
-     public class Fraction
+    public class Fraction
     {
-        public static int numerator;              //Числитель
-        public static int divider;          //Знаменатель
+        private long numerator; // Числитель
+        private long divider; // Знаменатель
 
-        public int Numerator                      //Условие числителя
+        public long Numerator // Условие числителя
         {
-            get { return numerator; }
+            get => numerator;
             set
             {
-                if (numerator < 0 && divider < 0)
+                if (value < 0 && divider < 0)
                 {
-                    numerator = Math.Abs(numerator);
+                    numerator = Math.Abs(value);
                     divider = Math.Abs(divider);
                 }
-                else numerator = value;
+                else
+                    numerator = value;
             }
         }
 
-        public int Divider                  //Условие знаменателя
+        public long Divider // Условие знаменателя
         {
-            get { return divider; }
+            get => divider;
             set
             {
-                if (divider == 0)
-                    throw new Exception("Знаменатель не может быть равен нулю!");
-                else if (numerator < 0 && divider < 0)
+                if (value == 0)
+                    divider = 1;
+                else if (numerator < 0 && value < 0)
                 {
                     numerator = Math.Abs(numerator);
-                    divider = Math.Abs(divider);
+                    divider = Math.Abs(value);
                 }
-                else divider = value;
+                else
+                    divider = value;
             }
         }
 
-        public Fraction(int up, int down)       //Конструктор с параметрами
+        public Fraction() // Конструктор без параметров
         {
-            numerator = up;
-            divider = down;
+            Numerator = 0;
+            Divider = 1;
         }
 
-        public Fraction()                       //Конструктор без параметров
+        public Fraction(long up, long down) // Конструктор с параметрами
         {
-            numerator = 0;
-            divider = 1;
+            Numerator = up;
+            Divider = down;
         }
 
-        public Fraction (int div, int up, int down)
+        public Fraction(long div, long up, long down)
         {
-            numerator = div * down + up;
-            divider = down;
+            Numerator = div * down + up;
+            Divider = down;
         }
 
-        public static Fraction operator *(Fraction a, int value) //Оператор умножения дроби на число девосторонний
-        {
-            Fraction result = a;
-
-            result.Divider *= value;
-            result.Numerator *= value;
-            Reduction(result);
-
-
-            return result;
-        }
-
-        public static Fraction operator *(int value, Fraction a) //Оператор умножения дроби на число правосторонний
+        public static Fraction operator *(Fraction a, long value) // Оператор умножения дроби на число девосторонний
         {
             Fraction result = a;
 
-            result.Divider *= value;
             result.Numerator *= value;
             Reduction(result);
 
-
             return result;
         }
 
-        public static Fraction operator *(Fraction a, Fraction b) //Оператор умножения дроби на дробь
+        public static Fraction operator *(long value, Fraction a) // Оператор умножения дроби на число правосторонний
         {
-            Fraction result = new Fraction();
+            Fraction result = a;
 
-            result.Divider = a.Divider * b.Divider;
-            result.Numerator = a.Numerator * b.Numerator;
+            result.Numerator *= value;
             Reduction(result);
 
-
             return result;
         }
 
-        public static Fraction operator +(Fraction a, Fraction b) //Оператор сложения
+        public static Fraction operator *(Fraction a, Fraction b) // Оператор умножения дроби на дробь
         {
-            Fraction result = new Fraction();
-
-            result.Divider = a.Divider * b.Divider;
-            a *= b.Divider;
-            b *= a.Divider;
-            result.Numerator = a.Numerator + b.Numerator;
+            Fraction result = new Fraction
+            {
+                Divider = a.Divider * b.Divider,
+                Numerator = a.Numerator * b.Numerator
+            };
             Reduction(result);
+
             return result;
         }
 
-        public static Fraction operator -(Fraction a, Fraction b) //Оператор вычитания
+        public static Fraction operator +(Fraction a, Fraction b) // Оператор сложения
         {
-            Fraction result = new Fraction();
+            Fraction result = new Fraction
+            {
+                Divider = a.Divider * b.Divider,
+                Numerator = a.Numerator * b.Divider + b.Numerator * a.Divider
+            };
 
-            result.Divider = a.Divider * b.Divider;
-            a *= b.Divider;
-            b *= a.Divider;
-            result.Numerator = a.Numerator - b.Numerator;
             Reduction(result);
+
             return result;
         }
 
-        public static Fraction operator /(Fraction a, Fraction b) //Оператор умножения
+        public static Fraction operator -(Fraction a, Fraction b) // Оператор вычитания
+        {
+            Fraction result = new Fraction
+            {
+                Divider = a.Divider * b.Divider,
+                Numerator = a.Numerator * b.Divider - b.Numerator * a.Divider
+            };
+
+            Reduction(result);
+
+            return result;
+        }
+
+        public static Fraction operator /(Fraction a, Fraction b) // Оператор умножения
         {
             Fraction result = new Fraction();
 
             b = ChangeDomDen(b);
 
-            result.Divider = a.Divider * b.Divider;
-            result.Numerator = a.Numerator * b.Numerator;
-            Reduction(result);
-
-            return result;
+            return a * b;
         }
     }
 }
