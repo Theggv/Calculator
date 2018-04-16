@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,15 @@ namespace WpfApp3
 {
     public class Calculator
     {
+        private const int _NUMCANCELS = 15;
+        public static Stack<OperationInfo> _Stack = new Stack<OperationInfo>(_NUMCANCELS);
+
         static Fraction a;
         static Fraction b;
         static Fraction res;
-        public enum Tools { Plus, Minus, Multi, Divide, Exp, Change, Red}
+        public enum Tools { Plus, Minus, Multi, Divide, Exp, Change, Red }
         static Tools tool;
-        static int exp;
+        static long exp;
         public Tools Tool
         {
             get => tool;
@@ -35,7 +39,7 @@ namespace WpfApp3
             set => res = value;
         }
 
-        public int Exp
+        public long Exp
         {
             get => exp;
             set => exp = value;
@@ -71,6 +75,60 @@ namespace WpfApp3
             return res;
         }
 
+
+        public Calculator()
+        {
+            A = new Fraction();
+            B = new Fraction();
+        }
+
+        public static void AddOperation(Fraction firstForm, SignForm.SignIndex sign, Fraction secondForm, Fraction result, long digit)
+        {
+            _Stack.Push(new OperationInfo(firstForm, sign, secondForm, result, digit));
+        }
+
+        public static void CancelOperation(MainWindow mainWindow)
+        {
+            if (_Stack.Count == 0)
+                return;
+
+            _Stack.Pop();
+
+            if (_Stack.Count == 0)
+                return;
+
+            var operInfo = _Stack.Peek();
+
+            if (operInfo.Sign == SignForm.SignIndex.Exp)
+            {
+                mainWindow.Add_ExpForm();
+
+                var firstForm = operInfo.FirstForm;
+                mainWindow._FirstForm.RewriteResult(firstForm.Numerator, firstForm.Divider);
+
+                mainWindow._SignForm.ChangeSign(operInfo.Sign);
+
+                mainWindow.ExpForm.Rewrite_Result(operInfo.Digit);
+
+                var result = operInfo.ResultForm;
+                mainWindow._ResultForm.RewriteResult(result.Numerator, result.Divider);
+            }
+            else
+            {
+                mainWindow.Remove_ExpForm();
+
+                var firstForm = operInfo.FirstForm;
+                mainWindow._FirstForm.RewriteResult(firstForm.Numerator, firstForm.Divider);
+
+                mainWindow._SignForm.ChangeSign(operInfo.Sign);
+
+                var secondForm = operInfo.SecondForm;
+                mainWindow._SecondForm.RewriteResult(secondForm.Numerator, secondForm.Divider);
+
+                var result = operInfo.ResultForm;
+                mainWindow._ResultForm.RewriteResult(result.Numerator, result.Divider);
+            }
+        }
         public static long AllocateDivPart(Fraction a)
         {
             return a.Numerator / a.Divider;
@@ -80,15 +138,17 @@ namespace WpfApp3
         {
             long c = a.Numerator;
             a.Divider = a.Numerator;
-            a.Numerator = c;            
+            a.Numerator = c;
+
             return a;
         }
 
-        public static Fraction Exponent(Fraction a, int exp)
+        public static Fraction Exponent(Fraction a, long exp)
         {
-            a.Numerator = (int)Math.Pow(a.Numerator, exp);
-            a.Divider = (int)Math.Pow(a.Divider, exp);
-            a = Reduction(a);
+            a.Numerator = (long)Math.Pow(a.Numerator, exp);
+            a.Divider = (long)Math.Pow(a.Divider, exp);
+            Reduction(a);
+
             return a;
         }
 
@@ -98,7 +158,7 @@ namespace WpfApp3
             long a = Math.Abs(fr.Numerator);
             long b = Math.Abs(fr.Divider);
 
-            while (a > 0 && b > 0)
+            while (a != 0 && b != 0)
                 if (a >= b) a %= b;
                 else b %= a;
             nod = a + b;
@@ -107,14 +167,6 @@ namespace WpfApp3
             fr.Divider /= nod;
 
             return fr;
-
         }
-
-        public Calculator()
-        {
-            A = new Fraction();
-            B = new Fraction();
-        }
-
     }
 }
