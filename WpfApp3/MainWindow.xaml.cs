@@ -19,14 +19,16 @@ namespace WpfApp3
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    { 
+    {
         private DigitForm _ExpForm = new DigitForm();
         static string operation;
         static bool isBinaryOperation;
         private bool _IsExp = false;
         private bool _IsChange = false;
         private bool _IsRed = false;
+        private bool _IsChangeSign = false;
         static Calculator calc = new Calculator();
+    
 
         public MainWindow()
         {
@@ -50,7 +52,7 @@ namespace WpfApp3
         private void Num_Click(object sender, RoutedEventArgs e)
         {
             int curNum = int.Parse((sender as Button).Content.ToString());
-            
+
             IInputElement focusedControl = Keyboard.FocusedElement;
 
             if (focusedControl is TextBox textBox)
@@ -63,9 +65,9 @@ namespace WpfApp3
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             _FirstForm.Reset();
-            if(_SecondForm != null)
+            if (_SecondForm != null)
                 _SecondForm.Reset();
-            if(_ResultForm != null)
+            if (_ResultForm != null)
                 _ResultForm.Reset();
         }
 
@@ -144,7 +146,7 @@ namespace WpfApp3
             {
                 Fraction B = new Fraction(_SecondForm.DivPart, _SecondForm.Divider, _SecondForm.Denominator);
                 calc.B = B;
-            }                      
+            }
             if (_IsExp) { calc.Tool = Calculator.Tools.Exp; calc.Exp = _ExpForm.Digit; }
             if (_IsChange) { calc.Tool = Calculator.Tools.Change; }
             if (_IsRed) { calc.Tool = Calculator.Tools.Red; }
@@ -153,6 +155,11 @@ namespace WpfApp3
             _ResultForm.RewriteResult(Calculator.AllocateDivPart(calc.Res),
                 Math.Abs(calc.Res.Numerator - Calculator.AllocateDivPart(calc.Res) * calc.Res.Divider),
                 calc.Res.Divider);
+        }
+
+        private void ChangeSign_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
