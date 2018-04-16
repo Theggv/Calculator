@@ -23,8 +23,14 @@ namespace WpfApp3
         private long _DivPart; // Целая часть
         private long _Numerator; // Числитель
         private long _Divider; // Знаменатель
-
+        private bool _IsFocused;
         private bool _IsReadOnly;
+
+        public bool FormFocused
+        {
+            get => _IsFocused;
+            set => _IsFocused = value;
+        }
 
         public long DivPart
         {
@@ -166,6 +172,11 @@ namespace WpfApp3
                 TextDivider.Text = Divider.ToString();
             else
                 TextDivider.Text = "";
+        }
+
+        private void TextDivider_GotFocus(object sender, RoutedEventArgs e)
+        {
+            FormFocused = true;
         }
     }
 }

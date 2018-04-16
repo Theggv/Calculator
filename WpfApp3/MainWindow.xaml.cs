@@ -27,6 +27,9 @@ namespace WpfApp3
         private bool _IsChange = false;
         private bool _IsRed = false;
         private bool _IsChangeSign = false;
+        private bool _IsSecondFormFocused = false;
+        private bool _IsFirstFormFocused = false;
+
         static Calculator calc = new Calculator();
     
 
@@ -68,6 +71,8 @@ namespace WpfApp3
             MainGrid.Children.Remove(_SecondForm);
             isBinaryOperation = false;
             _IsRed = true;
+            _IsExp = false;
+            _IsChange = false;
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
@@ -75,6 +80,8 @@ namespace WpfApp3
             MainGrid.Children.Remove(_SecondForm);
             isBinaryOperation = false;
             _IsChange = true;
+            _IsRed = false;
+            _IsExp = false;
 
         }
 
@@ -117,6 +124,9 @@ namespace WpfApp3
         private void Exp_Click(object sender, RoutedEventArgs e)
         {
             Add_ExpForm();
+            _IsExp = true;
+            _IsRed = false;
+            _IsChange = false;
         }
 
         public void Add_ExpForm()
@@ -156,6 +166,27 @@ namespace WpfApp3
 
         private void Equal_Click(object sender, RoutedEventArgs e)
         {
+           
+        }
+
+        private void ChangeSign_Click(object sender, RoutedEventArgs e)
+        {
+            if (_IsFirstFormFocused)
+            {
+                _FirstForm.Numerator = -_FirstForm.Numerator;
+                calc.A.Numerator = -calc.A.Numerator;
+                _FirstForm.RewriteResult(calc.A.Numerator, calc.A.Divider);
+            }
+            if (_IsSecondFormFocused)
+            {
+                _SecondForm.Numerator = -_SecondForm.Numerator;
+                calc.B.Numerator = -calc.B.Numerator;
+                _SecondForm.RewriteResult(calc.B.Numerator, calc.B.Divider);
+            }
+        }
+
+        private void Equal_Click_1(object sender, RoutedEventArgs e)
+        {
             Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Numerator, _FirstForm.Divider);
             calc.A = A;
             if (isBinaryOperation)
@@ -170,7 +201,7 @@ namespace WpfApp3
 
             _ResultForm.RewriteResult(calc.Res.Numerator, calc.Res.Divider);
 
-            if(_IsExp)
+            if (_IsExp)
                 Calculator.AddOperation(new Fraction(_FirstForm.DivPart, _FirstForm.Numerator, _FirstForm.Divider),
                     _SignForm.GetSign, new Fraction(),
                     new Fraction(_ResultForm.DivPart, _ResultForm.Numerator, _ResultForm.Divider), _ExpForm.Digit);
@@ -180,9 +211,21 @@ namespace WpfApp3
                     new Fraction(_ResultForm.DivPart, _ResultForm.Numerator, _ResultForm.Divider), 0);
         }
 
-        private void ChangeSign_Click(object sender, RoutedEventArgs e)
+        private void _FirstForm_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
+        }
+
+        private void _FirstForm_GotFocus(object sender, RoutedEventArgs e)
+        {
+            _IsFirstFormFocused = true;
+            _IsSecondFormFocused = false;
+        }
+
+        private void _SecondForm_GotFocus(object sender, RoutedEventArgs e)
+        {
+            _IsSecondFormFocused = true;
+            _IsFirstFormFocused = false;
         }
     }
 }
