@@ -24,6 +24,7 @@ namespace WpfApp3
         private long _Numerator; // Числитель
         private long _Divider; // Знаменатель
 
+        private bool _IsNegative;
         private bool _IsReadOnly;
 
         public long DivPart
@@ -34,7 +35,13 @@ namespace WpfApp3
 
         public long Numerator
         {
-            get => _Numerator;
+            get
+            {
+                if (_IsNegative)
+                    return _Numerator * -1;
+                else
+                    return _Numerator;
+            }
             set => _Numerator = value;
         }
 
@@ -101,12 +108,19 @@ namespace WpfApp3
             var curTextBox = sender as TextBox;
 
             if (curTextBox.Text == "-")
+            {
+                if(curTextBox.Name == "TextDivPart")
+                    _IsNegative = true;
                 return;
+            }
 
             if (curTextBox.Text == "")
             {
                 if (curTextBox.Name == "TextDivPart")
+                {
                     DivPart = 0;
+                    _IsNegative = false;
+                }
                 else if (curTextBox.Name == "TextNumerator")
                     Numerator = 0;
                 else if (curTextBox.Name == "TextDivider")
@@ -115,7 +129,10 @@ namespace WpfApp3
             else
             {
                 if (curTextBox.Name == "TextDivPart")
+                {
                     DivPart = int.Parse(curTextBox.Text);
+                    _IsNegative = false;
+                }
                 else if (curTextBox.Name == "TextNumerator")
                     Numerator = int.Parse(curTextBox.Text);
                 else if (curTextBox.Name == "TextDivider")
@@ -136,7 +153,7 @@ namespace WpfApp3
 
         public void RewriteResult(long numerator, long divider)
         {
-            if (numerator < 0 && divider < 0)
+            if ((numerator < 0 && divider < 0) || divider < 0)
             {
                 numerator *= -1;
                 divider *= -1;
@@ -144,14 +161,26 @@ namespace WpfApp3
 
             long divPart = numerator / divider;
 
+
             DivPart = divPart;
             Numerator = numerator % divider;
             Divider = divider;
 
+            if (Numerator < 0)
+            {
+                DivPart -= 1;
+                Numerator += Divider;
+            }
+
             if (_DivPart != 0)
                 TextDivPart.Text = DivPart.ToString();
             else
-                TextDivPart.Text = "";
+            {
+                if (Numerator * Divider < 0)
+                    TextDivPart.Text = "-";
+                else
+                    TextDivPart.Text = "";
+            }
 
             if (Numerator == 0 || (Numerator == 1 && Divider == 1))
             {
