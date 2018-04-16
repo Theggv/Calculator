@@ -20,25 +20,25 @@ namespace WpfApp3
     /// </summary>
     public partial class FractionForm : UserControl
     {
-        private int _DivPart;
-        private int _Numerator;
-        private int _Divider;
+        private long _DivPart;
+        private long _Numerator;
+        private long _Divider;
 
         private bool _IsReadOnly;
 
-        public int DivPart
+        public long DivPart
         {
             get => _DivPart;
             set => _DivPart = value;
         }
 
-        public int Numerator
+        public long Numerator
         {
             get => _Numerator;
             set => _Numerator = value;
         }
 
-        public int Divider
+        public long Divider
         {
             get
             {

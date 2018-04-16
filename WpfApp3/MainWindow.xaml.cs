@@ -23,6 +23,12 @@ namespace WpfApp3
         private DigitForm _ExpForm;
         private bool _IsExp = false;
 
+        public DigitForm ExpForm
+        {
+            get => _ExpForm;
+            set => _ExpForm = value;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,7 +41,7 @@ namespace WpfApp3
         private void Num_Click(object sender, RoutedEventArgs e)
         {
             int curNum = int.Parse((sender as Button).Content.ToString());
-            
+
             IInputElement focusedControl = Keyboard.FocusedElement;
 
             if (focusedControl is TextBox textBox)
@@ -48,9 +54,9 @@ namespace WpfApp3
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             _FirstForm.Reset();
-            if(_SecondForm != null)
+            if (_SecondForm != null)
                 _SecondForm.Reset();
-            if(_ResultForm != null)
+            if (_ResultForm != null)
                 _ResultForm.Reset();
         }
 
@@ -58,18 +64,7 @@ namespace WpfApp3
         {
             var operation = (sender as Button).Content.ToString();
 
-            if(_IsExp)
-            {
-                _SecondForm = new FractionForm();
-
-                MainGrid.Children.Remove(_ExpForm);
-                MainGrid.Children.Add(_SecondForm);
-
-                Grid.SetRow(_SecondForm, 1);
-                Grid.SetColumn(_SecondForm, 4);
-
-                _IsExp = false;
-            }
+            Remove_ExpForm();
 
             switch (operation)
             {
@@ -90,7 +85,12 @@ namespace WpfApp3
 
         private void Exp_Click(object sender, RoutedEventArgs e)
         {
-            if(!_IsExp)
+            Add_ExpForm();
+        }
+
+        public void Add_ExpForm()
+        {
+            if (!_IsExp)
             {
                 _ExpForm = new DigitForm();
 
@@ -104,6 +104,32 @@ namespace WpfApp3
 
                 _IsExp = true;
             }
+        }
+
+        public void Remove_ExpForm()
+        {
+            if (_IsExp)
+            {
+                _SecondForm = new FractionForm();
+
+                MainGrid.Children.Remove(_ExpForm);
+                MainGrid.Children.Add(_SecondForm);
+
+                Grid.SetRow(_SecondForm, 1);
+                Grid.SetColumn(_SecondForm, 4);
+
+                _IsExp = false;
+            }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Calculator.CancelOperation(this);
+        }
+
+        private void _FirstForm_LostFocus(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
