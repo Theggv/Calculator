@@ -27,6 +27,9 @@ namespace WpfApp3
         private bool _IsExp = false;
         private bool _IsChange = false;
         private bool _IsReduction = false;
+        private bool _IsFirstFormFocused;
+        private bool _IsSecondFormFocused;
+
 
         private static Calculator calc = new Calculator();
 
@@ -65,22 +68,20 @@ namespace WpfApp3
 
         private void Red_Click(object sender, RoutedEventArgs e)
         {
-            // ne rabotaet
-            /*
             MainGrid.Children.Remove(_SecondForm);
             isBinaryOperation = false;
-            _IsRed = true;
-            */
+            _IsExp = false;
+            _IsReduction = true;
+            _IsChange = false;
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
-            // ne rabotaet
-            /*
             MainGrid.Children.Remove(_SecondForm);
             isBinaryOperation = false;
+            _IsExp = true;
+            _IsReduction = false;
             _IsChange = true;
-            */
         }
 
         public void Cancel_Click(object sender, RoutedEventArgs e)
@@ -122,6 +123,9 @@ namespace WpfApp3
         private void Exp_Click(object sender, RoutedEventArgs e)
         {
             Add_ExpForm();
+            _IsExp = true;
+            _IsReduction = false;
+            _IsChange = false;
         }
 
         public void Add_ExpForm()
@@ -179,12 +183,11 @@ namespace WpfApp3
                 Fraction B = new Fraction(_SecondForm.DivPart, _SecondForm.Numerator, _SecondForm.Divider);
                 calc.B = B;
             }
-            // ne rabotaet
-            /*
-            if (_IsExp) { calc.Tool = Calculator.Tools.Exp; calc.Exp = _ExpForm.Digit; }
-            if (_IsChange) { calc.Tool = Calculator.Tools.Change; }
-            if (_IsRed) { calc.Tool = Calculator.Tools.Red; }
-            */
+
+            if (_IsExp) { Calculator.Tool = Calculator.Tools.Exp; calc.Exp = _ExpForm.Digit; }
+            if (_IsChange) { Calculator.Tool = Calculator.Tools.Change; }
+            if (_IsReduction) { Calculator.Tool = Calculator.Tools.Red; }
+            
             calc.Res = calc.Calculation();
 
             _ResultForm.RewriteResult(calc.Res.Numerator, calc.Res.Divider);
@@ -201,6 +204,24 @@ namespace WpfApp3
                     _SignForm.GetSign, new Fraction(_SecondForm.DivPart, _SecondForm.Numerator, _SecondForm.Divider),
                     new Fraction(_ResultForm.DivPart, _ResultForm.Numerator, _ResultForm.Divider), 0);
             }
+        }
+
+        private void ChangeSign_Click(object sender, RoutedEventArgs e)
+        {
+            if (_IsFirstFormFocused) { _FirstForm.Numerator *= -1; _FirstForm.RewriteResult(_FirstForm.Numerator, _FirstForm.Divider); }
+            if (_IsSecondFormFocused) { _SecondForm.Numerator *= -1; _SecondForm.RewriteResult(_SecondForm.Numerator, _SecondForm.Divider); }
+        }
+
+        private void _FirstForm_GotFocus(object sender, RoutedEventArgs e)
+        {
+            _IsFirstFormFocused = true;
+            _IsSecondFormFocused = false;
+        }
+
+        private void _SecondForm_GotFocus(object sender, RoutedEventArgs e)
+        {
+            _IsFirstFormFocused = false;
+            _IsSecondFormFocused = true;
         }
     }
 }

@@ -24,8 +24,14 @@ namespace WpfApp3
         private long _Numerator; // Числитель
         private long _Divider; // Знаменатель
 
-        private bool _IsNegative;
+        private bool _IsNegative = false;
         private bool _IsReadOnly;
+        
+        public bool Negative
+        {
+            get => _IsNegative;
+            set => _IsNegative = value;
+        }
 
         public long DivPart
         {

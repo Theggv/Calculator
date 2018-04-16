@@ -25,8 +25,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
-        <local:FractionForm x:Name="_FirstForm" Grid.Row="1" Grid.Column="2"/>
-        <local:FractionForm x:Name="_SecondForm" Grid.Row="1" Grid.Column="4"/>
+        <local:FractionForm x:Name="_FirstForm" Grid.Row="1" Grid.Column="2" GotFocus="_FirstForm_GotFocus"/>
+        <local:FractionForm x:Name="_SecondForm" Grid.Row="1" Grid.Column="4" GotFocus="_SecondForm_GotFocus"/>
         <local:SignForm x:Name="_SignForm" Grid.Row="1" Grid.Column="3"/>
         <local:FractionForm x:Name="_ResultForm" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"/>
 
@@ -43,7 +43,7 @@
 
         <Button x:Name="Reduction" Grid.Row="4" Grid.Column="1" Content="Sokrashenie" FontSize="16" FontWeight="Bold" Click="Red_Click"/>
         <Button x:Name="Exchange" Grid.Row="4" Grid.Column="2" Content="Obmen" FontSize="16" FontWeight="Bold" Click="Change_Click"/>
-        <Button x:Name="ChangeSign" Grid.Row="5" Grid.Column="2" Content="+/-" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="ChangeSign" Grid.Row="5" Grid.Column="2" Content="+/-" FontSize="16" FontWeight="Bold" Click="ChangeSign_Click"/>
         <Button x:Name="Equal" Grid.Row="6" Grid.Column="2" Content="=" FontSize="16" FontWeight="Bold" Click="Equal_Click"/>
 
         <Button x:Name="B1" Grid.Row="4" Grid.Column="3" Content="1" FontSize="16" FontWeight="Bold" Focusable="False" Click="Num_Click"/>
