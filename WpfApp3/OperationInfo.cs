@@ -13,6 +13,7 @@ namespace WpfApp3
         private long _Digit;
 
         private SignForm.SignIndex _Sign;
+        private Calculator.Tools _Tool;
         private Fraction _Result;
 
         public Fraction FirstForm { get => _FirstForm; }
@@ -23,15 +24,19 @@ namespace WpfApp3
 
         public SignForm.SignIndex Sign { get => _Sign; }
 
+        public Calculator.Tools Tool { get => _Tool; }
+
         public Fraction ResultForm { get => _Result; }
 
-        public OperationInfo(Fraction firstForm, SignForm.SignIndex sign, Fraction secondForm, Fraction result, long digit)
+        public OperationInfo(Fraction firstForm, SignForm.SignIndex sign, Fraction secondForm,
+            Fraction result, long digit, Calculator.Tools tool)
         {
             _FirstForm = firstForm;
             _Sign = sign;
             _SecondFrom = secondForm;
             _Result = result;
             _Digit = digit;
+            _Tool = tool;
         }
     }
 }

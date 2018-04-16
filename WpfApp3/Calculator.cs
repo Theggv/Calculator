@@ -12,27 +12,33 @@ namespace WpfApp3
         private const int _NUMCANCELS = 15;
         public static Stack<OperationInfo> _Stack = new Stack<OperationInfo>(_NUMCANCELS);
 
-        static Fraction a;
-        static Fraction b;
-        static Fraction res;
+        private static Fraction a;
+        private static Fraction b;
+        private static Fraction res;
+
+        private static Tools tool;
+        private static long exp;
+        
         public enum Tools { Plus, Minus, Multi, Divide, Exp, Change, Red }
-        static Tools tool;
-        static long exp;
-        public Tools Tool
+
+        public static Tools Tool
         {
             get => tool;
             set => tool = value;
         }
+
         public Fraction A
         {
             get => a;
             set => a = value;
         }
+
         public Fraction B
         {
             get => b;
             set => b = value;
         }
+
         public Fraction Res
         {
             get => res;
@@ -75,21 +81,21 @@ namespace WpfApp3
             return res;
         }
 
-
         public Calculator()
         {
             A = new Fraction();
             B = new Fraction();
         }
 
-        public static void AddOperation(Fraction firstForm, SignForm.SignIndex sign, Fraction secondForm, Fraction result, long digit)
+        public static void SaveOperation(Fraction firstForm, SignForm.SignIndex sign,
+            Fraction secondForm, Fraction result, long digit)
         {
-            _Stack.Push(new OperationInfo(firstForm, sign, secondForm, result, digit));
+            _Stack.Push(new OperationInfo(firstForm, sign, secondForm, result, digit, Tool));
         }
 
         public static void CancelOperation(MainWindow mainWindow)
         {
-            if (_Stack.Count == 0)
+            if (_Stack.Count <= 1)
                 return;
 
             _Stack.Pop();
@@ -98,6 +104,8 @@ namespace WpfApp3
                 return;
 
             var operInfo = _Stack.Peek();
+
+            Tool = operInfo.Tool;
 
             if (operInfo.Sign == SignForm.SignIndex.Exp)
             {
@@ -134,9 +142,10 @@ namespace WpfApp3
             return a.Numerator / a.Divider;
         }
 
-        public static Fraction ChangeDomDen(Fraction a) //Change places of devider an Numerator
+        public static Fraction ChangeDomDen(Fraction a) // Change places of divider and numerator
         {
             long c = a.Numerator;
+
             a.Divider = a.Numerator;
             a.Numerator = c;
 
@@ -147,6 +156,7 @@ namespace WpfApp3
         {
             a.Numerator = (long)Math.Pow(a.Numerator, exp);
             a.Divider = (long)Math.Pow(a.Divider, exp);
+
             Reduction(a);
 
             return a;
@@ -154,13 +164,16 @@ namespace WpfApp3
 
         public static Fraction Reduction(Fraction fr)
         {
-            long nod = 0, beg; bool ok = false;  
+            long nod = 0;
             long a = Math.Abs(fr.Numerator);
             long b = Math.Abs(fr.Divider);
 
             while (a != 0 && b != 0)
-                if (a >= b) a %= b;
-                else b %= a;
+                if (a >= b)
+                    a %= b;
+                else
+                    b %= a;
+
             nod = a + b;
 
             fr.Numerator /= nod;

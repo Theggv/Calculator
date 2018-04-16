@@ -21,12 +21,14 @@ namespace WpfApp3
     public partial class MainWindow : Window
     { 
         private DigitForm _ExpForm = new DigitForm();
-        static string operation;
-        static bool isBinaryOperation = true;
+        private static string operation;
+        private static bool isBinaryOperation = true;
+
         private bool _IsExp = false;
         private bool _IsChange = false;
-        private bool _IsRed = false;
-        static Calculator calc = new Calculator();
+        private bool _IsReduction = false;
+
+        private static Calculator calc = new Calculator();
 
         public DigitForm ExpForm { get => _ExpForm; }
 
@@ -63,17 +65,22 @@ namespace WpfApp3
 
         private void Red_Click(object sender, RoutedEventArgs e)
         {
+            // ne rabotaet
+            /*
             MainGrid.Children.Remove(_SecondForm);
             isBinaryOperation = false;
             _IsRed = true;
+            */
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
+            // ne rabotaet
+            /*
             MainGrid.Children.Remove(_SecondForm);
             isBinaryOperation = false;
             _IsChange = true;
-
+            */
         }
 
         public void Cancel_Click(object sender, RoutedEventArgs e)
@@ -91,22 +98,22 @@ namespace WpfApp3
             {
                 case "+":
                     _SignForm.ChangeSign(SignForm.SignIndex.Plus);
-                    calc.Tool = Calculator.Tools.Plus;
+                    Calculator.Tool = Calculator.Tools.Plus;
                     isBinaryOperation = true;
                     break;
                 case "-":
                     _SignForm.ChangeSign(SignForm.SignIndex.Minus);
-                    calc.Tool = Calculator.Tools.Minus;
+                    Calculator.Tool = Calculator.Tools.Minus;
                     isBinaryOperation = true;
                     break;
                 case "*":
                     _SignForm.ChangeSign(SignForm.SignIndex.Multi);
-                    calc.Tool = Calculator.Tools.Multi;
+                    Calculator.Tool = Calculator.Tools.Multi;
                     isBinaryOperation = true;
                     break;
                 case "/":
                     _SignForm.ChangeSign(SignForm.SignIndex.Divide);
-                    calc.Tool = Calculator.Tools.Divide;
+                    Calculator.Tool = Calculator.Tools.Divide;
                     isBinaryOperation = true;
                     break;
             }
@@ -154,28 +161,46 @@ namespace WpfApp3
 
         private void Equal_Click(object sender, RoutedEventArgs e)
         {
+            MakeEqual();
+        }
+
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.OemPlus)
+                MakeEqual();
+        }
+
+        private void MakeEqual()
+        {
             Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Numerator, _FirstForm.Divider);
             calc.A = A;
             if (isBinaryOperation)
             {
                 Fraction B = new Fraction(_SecondForm.DivPart, _SecondForm.Numerator, _SecondForm.Divider);
                 calc.B = B;
-            }                      
+            }
+            // ne rabotaet
+            /*
             if (_IsExp) { calc.Tool = Calculator.Tools.Exp; calc.Exp = _ExpForm.Digit; }
             if (_IsChange) { calc.Tool = Calculator.Tools.Change; }
             if (_IsRed) { calc.Tool = Calculator.Tools.Red; }
+            */
             calc.Res = calc.Calculation();
 
             _ResultForm.RewriteResult(calc.Res.Numerator, calc.Res.Divider);
 
-            if(_IsExp)
-                Calculator.AddOperation(new Fraction(_FirstForm.DivPart, _FirstForm.Numerator, _FirstForm.Divider),
+            if (_IsExp)
+            {
+                Calculator.SaveOperation(new Fraction(_FirstForm.DivPart, _FirstForm.Numerator, _FirstForm.Divider),
                     _SignForm.GetSign, new Fraction(),
                     new Fraction(_ResultForm.DivPart, _ResultForm.Numerator, _ResultForm.Divider), _ExpForm.Digit);
+            }
             else
-                Calculator.AddOperation(new Fraction(_FirstForm.DivPart, _FirstForm.Numerator, _FirstForm.Divider),
+            {
+                Calculator.SaveOperation(new Fraction(_FirstForm.DivPart, _FirstForm.Numerator, _FirstForm.Divider),
                     _SignForm.GetSign, new Fraction(_SecondForm.DivPart, _SecondForm.Numerator, _SecondForm.Divider),
                     new Fraction(_ResultForm.DivPart, _ResultForm.Numerator, _ResultForm.Divider), 0);
+            }
         }
     }
 }
