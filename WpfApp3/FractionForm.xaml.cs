@@ -173,14 +173,6 @@ namespace WpfApp3
             Numerator = numerator % divider;
             Divider = divider;
 
-            // Привести дробь к нормальному виду с единственным минусом, если
-            // целая часть больше нуля
-            if (Numerator < 0 && DivPart > 0 )
-            {
-                DivPart -= 1;
-                Numerator += Divider;
-            }
-
             // Записать в форму целую часть
             if (_DivPart != 0)
                 TextDivPart.Text = DivPart.ToString();

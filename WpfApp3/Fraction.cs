@@ -52,6 +52,12 @@ namespace WpfApp3
 
         public Fraction(long up, long down) // Конструктор с параметрами
         {
+            if ((up < 0 && down < 0) || down < 0)
+            {
+                up *= -1;
+                down *= -1;
+            }
+
             Numerator = up;
             Divider = down;
         }
@@ -62,6 +68,7 @@ namespace WpfApp3
                 Numerator = div * down - up;
             else
                 Numerator = div * down + up;
+
             Divider = down;
         }
 
