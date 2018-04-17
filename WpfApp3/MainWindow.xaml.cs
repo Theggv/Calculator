@@ -214,6 +214,18 @@ namespace WpfApp3
                     isBinaryOperation = true;
                     break;
             }
+
+            if (!_ResultForm.IsEmpty)
+            {
+                long num;
+                if (_ResultForm.DivPart < 0)
+                    num = _ResultForm.DivPart * _ResultForm.Divider - _ResultForm.Numerator;
+                else
+                    num = _ResultForm.DivPart * _ResultForm.Divider + _ResultForm.Numerator;
+
+                _FirstForm.RewriteResult(num, _ResultForm.Divider);
+                _ResultForm.Reset();
+            }
         }
 
         private void Exp_Click(object sender, RoutedEventArgs e)
