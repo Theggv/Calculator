@@ -202,11 +202,14 @@ namespace WpfApp3
             }
 
             // Выделить целую часть
-            long divPart = numerator / divider;
-            
-            DivPart = divPart;
-            Numerator = numerator % divider;
-            Divider = divider;
+            if (divider != 0)
+            {
+                long divPart = numerator / divider;
+
+                DivPart = divPart;
+                Numerator = numerator % divider;
+                Divider = divider;
+            }
 
             // Записать в форму целую часть
             if (_DivPart != 0)
