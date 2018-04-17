@@ -21,12 +21,8 @@ namespace WpfApp3
     public partial class MainWindow : Window
     {
         private DigitForm _ExpForm = new DigitForm();
-        private static string operation;
-        private static bool isBinaryOperation = true;
 
         private bool _IsExp = false;
-        private bool _IsChange = false;
-        private bool _IsReduction = false;
         private bool _IsFirstFormFocused;
         private bool _IsSecondFormFocused;
 
@@ -145,27 +141,23 @@ namespace WpfApp3
 
         private void Red_Click(object sender, RoutedEventArgs e)
         {
-            isBinaryOperation = false;
             if (_IsFirstFormFocused)
             {
-                Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Numerator, _FirstForm.Divider);
+                Fraction A = new Fraction(_FirstForm.GetFullNumerator, _FirstForm.Divider);
                 A = Calculator.Reduction(A);
                 _FirstForm.RewriteResult(A.Numerator, A.Divider);
             }
             if (_IsSecondFormFocused)
             {
-                Fraction A = new Fraction(_SecondForm.DivPart, _SecondForm.Numerator, _SecondForm.Divider);
+                Fraction A = new Fraction(_SecondForm.GetFullNumerator, _SecondForm.Divider);
                 A = Calculator.Reduction(A);
-                _FirstForm.RewriteResult(A.Numerator, A.Divider);
+                _SecondForm.RewriteResult(A.Numerator, A.Divider);
             }
             _IsExp = false;
-            _IsReduction = true;
-            _IsChange = false;
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
-            isBinaryOperation = false;
             if (_IsFirstFormFocused)
             {
                 _FirstForm.RewriteResult(_FirstForm.Divider, _FirstForm.GetFullNumerator);
@@ -176,8 +168,6 @@ namespace WpfApp3
                 _SecondForm.RewriteResult(_SecondForm.Divider, _SecondForm.GetFullNumerator);
             }
             _IsExp = true;
-            _IsReduction = false;
-            _IsChange = true;
         }
 
         public void Cancel_Click(object sender, RoutedEventArgs e)
@@ -196,22 +186,18 @@ namespace WpfApp3
                 case "+":
                     _SignForm.ChangeSign(SignForm.SignIndex.Plus);
                     Calculator.Tool = Calculator.Tools.Plus;
-                    isBinaryOperation = true;
                     break;
                 case "-":
                     _SignForm.ChangeSign(SignForm.SignIndex.Minus);
                     Calculator.Tool = Calculator.Tools.Minus;
-                    isBinaryOperation = true;
                     break;
                 case "*":
                     _SignForm.ChangeSign(SignForm.SignIndex.Multi);
                     Calculator.Tool = Calculator.Tools.Multi;
-                    isBinaryOperation = true;
                     break;
                 case "/":
                     _SignForm.ChangeSign(SignForm.SignIndex.Divide);
                     Calculator.Tool = Calculator.Tools.Divide;
-                    isBinaryOperation = true;
                     break;
             }
 
@@ -232,15 +218,12 @@ namespace WpfApp3
         {
             Add_ExpForm();
             _IsExp = true;
-            _IsReduction = false;
-            _IsChange = false;
         }
 
         public void Add_ExpForm()
         {
             if (!_IsExp)
             {
-                isBinaryOperation = false;
                 _ExpForm = new DigitForm();
 
                 MainGrid.Children.Remove(_SecondForm);
@@ -258,7 +241,6 @@ namespace WpfApp3
         {
             if (_IsExp)
             {
-                isBinaryOperation = true;
                 _SecondForm = new FractionForm();
 
                 MainGrid.Children.Remove(_ExpForm);
@@ -284,17 +266,13 @@ namespace WpfApp3
 
         private void MakeEqual()
         {
-            Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Numerator, _FirstForm.Divider);
-            calc.A = A;
-            if (isBinaryOperation)
-            {
-                Fraction B = new Fraction(_SecondForm.DivPart, _SecondForm.Numerator, _SecondForm.Divider);
-                calc.B = B;
-            }
+            calc.A = new Fraction(_FirstForm.GetFullNumerator, _FirstForm.Divider);
 
             if (_IsExp) { Calculator.Tool = Calculator.Tools.Exp; calc.Exp = _ExpForm.Digit; }
-            if (_IsChange) { Calculator.Tool = Calculator.Tools.Change; }
-            if (_IsReduction) { Calculator.Tool = Calculator.Tools.Red; }
+            else
+            {
+                calc.B = new Fraction(_SecondForm.GetFullNumerator, _SecondForm.Divider);
+            }
 
             calc.Res = calc.Calculation();
 
