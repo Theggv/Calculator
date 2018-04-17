@@ -121,6 +121,10 @@ namespace WpfApp3
             }
             else
                 e.Handled = true;
+
+            var currentTextBox = sender as TextBox;
+            if (!rgx.IsMatch(currentTextBox.Text))
+                currentTextBox.Text = "";
         }
 
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
