@@ -198,8 +198,5 @@ namespace UnitTestProject1
             Assert.AreEqual(a.Divider, 8);
             Assert.AreEqual(a.Numerator, 1);
         }
-
-
-
     }
 }

@@ -158,22 +158,12 @@ namespace WpfApp3
             isBinaryOperation = false;
             if (_IsFirstFormFocused)
             {
-                long num;
-                if (_FirstForm.DivPart >= 0)
-                    num = _FirstForm.Divider * _FirstForm.DivPart + _FirstForm.Numerator;
-                else
-                    num = _FirstForm.Divider * _FirstForm.DivPart - _FirstForm.Numerator;
-                _FirstForm.RewriteResult(_FirstForm.Divider, num);
+                _FirstForm.RewriteResult(_FirstForm.Divider, _FirstForm.GetFullNumerator);
             }
 
             if (_IsSecondFormFocused)
             {
-                long num;
-                if (_SecondForm.DivPart >= 0)
-                    num = _SecondForm.Divider * _SecondForm.DivPart + _SecondForm.Numerator;
-                else
-                    num = _SecondForm.Divider * _SecondForm.DivPart - _SecondForm.Numerator;
-                _SecondForm.RewriteResult(_SecondForm.Divider, num);
+                _SecondForm.RewriteResult(_SecondForm.Divider, _SecondForm.GetFullNumerator);
             }
             _IsExp = true;
             _IsReduction = false;
@@ -317,24 +307,12 @@ namespace WpfApp3
         private void ChangeSign_Click(object sender, RoutedEventArgs e)
         {
             if (_IsFirstFormFocused)
-            {
-                long num;
-                if (_FirstForm.DivPart >= 0)
-                    num = _FirstForm.Divider * _FirstForm.DivPart + _FirstForm.Numerator;
-                else
-                    num = _FirstForm.Divider * _FirstForm.DivPart - _FirstForm.Numerator;
-                num *= -1;
-                _FirstForm.RewriteResult(num, _FirstForm.Divider);
+            {                
+                _FirstForm.RewriteResult(_FirstForm.GetFullNumerator, _FirstForm.Divider);
             }
             if (_IsSecondFormFocused)
             {
-                long num;
-                if (_SecondForm.DivPart >= 0)
-                    num = _SecondForm.Divider * _SecondForm.DivPart + _SecondForm.Numerator;
-                else
-                    num = _SecondForm.Divider * _SecondForm.DivPart - _SecondForm.Numerator;
-                num *= -1;
-                _SecondForm.RewriteResult(num, _SecondForm.Divider);
+                _SecondForm.RewriteResult(_SecondForm.GetFullNumerator, _SecondForm.Divider);
             }
         }
 
