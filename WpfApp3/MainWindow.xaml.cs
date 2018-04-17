@@ -47,7 +47,7 @@ namespace WpfApp3
         private void Num_Click(object sender, RoutedEventArgs e)
         {
             int curNum = int.Parse((sender as Button).Content.ToString());
-            
+            TextBox curTextBox = null;
             IInputElement focusedControl = Keyboard.FocusedElement;
 
             if (focusedControl is TextBox textBox)
@@ -55,9 +55,14 @@ namespace WpfApp3
                 textBox.Text += curNum.ToString();
                 textBox.SelectionStart = textBox.Text.Length;
             }
-            var curTextBox = (TextBox)focusedControl;
 
-            if (_IsFirstFormFocused)
+            try
+            {
+                curTextBox = (TextBox)focusedControl;
+            }
+            catch (Exception) { curTextBox = null; }
+
+            if (_IsFirstFormFocused && curTextBox != null)
             {
                 if (curTextBox.Text == "-")
                 {
@@ -92,7 +97,7 @@ namespace WpfApp3
                 }
             }
 
-            if (_IsSecondFormFocused)
+            if (_IsSecondFormFocused && curTextBox != null)
             {
                 if (curTextBox.Text == "-")
                 {

@@ -58,7 +58,10 @@ namespace WpfApp3
 
         public Fraction(long div, long up, long down)
         {
-            Numerator = div * down + up;
+            if (div < 0)
+                Numerator = div * down - up;
+            else
+                Numerator = div * down + up;
             Divider = down;
         }
 
