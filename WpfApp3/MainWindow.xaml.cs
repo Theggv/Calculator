@@ -145,7 +145,6 @@ namespace WpfApp3
 
         private void Red_Click(object sender, RoutedEventArgs e)
         {
-            MainGrid.Children.Remove(_SecondForm);
             isBinaryOperation = false;
             if (_IsFirstFormFocused) _FirstForm.RewriteResult(_FirstForm.Numerator, _FirstForm.Divider);
             if (_IsSecondFormFocused) _SecondForm.RewriteResult(_SecondForm.Numerator, _SecondForm.Divider);
@@ -156,8 +155,26 @@ namespace WpfApp3
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
-            MainGrid.Children.Remove(_SecondForm);
             isBinaryOperation = false;
+            if (_IsFirstFormFocused)
+            {
+                long num;
+                if (_FirstForm.DivPart >= 0)
+                    num = _FirstForm.Divider * _FirstForm.DivPart + _FirstForm.Numerator;
+                else
+                    num = _FirstForm.Divider * _FirstForm.DivPart - _FirstForm.Numerator;
+                _FirstForm.RewriteResult(_FirstForm.Divider, num);
+            }
+
+            if (_IsSecondFormFocused)
+            {
+                long num;
+                if (_SecondForm.DivPart >= 0)
+                    num = _SecondForm.Divider * _SecondForm.DivPart + _SecondForm.Numerator;
+                else
+                    num = _SecondForm.Divider * _SecondForm.DivPart - _SecondForm.Numerator;
+                _SecondForm.RewriteResult(_SecondForm.Divider, num);
+            }
             _IsExp = true;
             _IsReduction = false;
             _IsChange = true;

@@ -18,7 +18,7 @@ namespace WpfApp3
 
         private static Tools tool;
         private static long exp;
-        
+
         public enum Tools { Plus, Minus, Multi, Divide, Exp, Change, Red }
 
         public static Tools Tool
@@ -154,9 +154,15 @@ namespace WpfApp3
 
         public static Fraction Exponent(Fraction a, long exp)
         {
+            if (exp<0)
+            {
+                long c = a.Numerator;
+                a.Numerator = a.Divider;
+                a.Divider = c;
+                exp = -exp;
+            }
             a.Numerator = (long)Math.Pow(a.Numerator, exp);
             a.Divider = (long)Math.Pow(a.Divider, exp);
-
             Reduction(a);
 
             return a;
