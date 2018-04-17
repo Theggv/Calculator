@@ -144,7 +144,7 @@ namespace WpfApp3
 
         public static Fraction ChangeDomDen(Fraction a) // Change places of divider and numerator
         {
-            long c = a.Numerator;
+            long c = a.Divider;
 
             a.Divider = a.Numerator;
             a.Numerator = c;

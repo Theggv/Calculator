@@ -134,9 +134,7 @@ namespace WpfApp3
         {
             Fraction result = new Fraction();
 
-            b = ChangeDomDen(b);
-
-            return a * b;
+            return a * ChangeDomDen(b);
         }
     }
 }

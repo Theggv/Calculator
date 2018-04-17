@@ -26,6 +26,7 @@ namespace WpfApp3
 
         private bool _IsNegative = false;
         private bool _IsReadOnly;
+        private bool _IsEmpty = true;
         
         public bool Negative
         {
@@ -73,6 +74,11 @@ namespace WpfApp3
         {
             get => _IsReadOnly;
             set => _IsReadOnly = value;
+        }
+
+        public bool IsEmpty
+        {
+            get => _IsEmpty;
         }
         
         public FractionForm()
@@ -155,11 +161,21 @@ namespace WpfApp3
             TextDivPart.Text = "";
             TextNumerator.Text = "";
             TextDivider.Text = "";
+
+            _IsNegative = false;
         }
 
         public void RewriteResult(long numerator, long divider)
         {
-            if (numerator == 0) { TextDivPart.Text = "0"; return; }
+            if (_IsReadOnly)
+                _IsEmpty = false;
+
+            if (numerator == 0)
+            {
+                TextDivPart.Text = "0";
+                return;
+            }
+
             // Сделать знаменатель положительным
             if ((numerator < 0 && divider < 0) || divider < 0)
             {
