@@ -52,6 +52,17 @@ namespace WpfApp3
             set => _Numerator = value;
         }
 
+        public long GetFullNumerator
+        {
+            get
+            {
+                if (_DivPart < 0)
+                    return _DivPart * _Divider - _Numerator;
+                else
+                    return _DivPart * _Divider + _Numerator;
+            }
+        }
+
         public long Divider
         {
             get
