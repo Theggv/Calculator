@@ -19,7 +19,7 @@ namespace WpfApp3
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    { 
+    {
         private DigitForm _ExpForm = new DigitForm();
         private static string operation;
         private static bool isBinaryOperation = true;
@@ -137,9 +137,9 @@ namespace WpfApp3
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             _FirstForm.Reset();
-            if(_SecondForm != null)
+            if (_SecondForm != null)
                 _SecondForm.Reset();
-            if(_ResultForm != null)
+            if (_ResultForm != null)
                 _ResultForm.Reset();
         }
 
@@ -196,7 +196,7 @@ namespace WpfApp3
                     break;
             }
         }
-        
+
         private void Exp_Click(object sender, RoutedEventArgs e)
         {
             Add_ExpForm();
@@ -235,7 +235,7 @@ namespace WpfApp3
 
                 Grid.SetRow(_SecondForm, 1);
                 Grid.SetColumn(_SecondForm, 4);
-                
+
                 _IsExp = false;
             }
         }
@@ -264,7 +264,7 @@ namespace WpfApp3
             if (_IsExp) { Calculator.Tool = Calculator.Tools.Exp; calc.Exp = _ExpForm.Digit; }
             if (_IsChange) { Calculator.Tool = Calculator.Tools.Change; }
             if (_IsReduction) { Calculator.Tool = Calculator.Tools.Red; }
-            
+
             calc.Res = calc.Calculation();
 
             _ResultForm.RewriteResult(calc.Res.Numerator, calc.Res.Divider);
@@ -285,8 +285,16 @@ namespace WpfApp3
 
         private void ChangeSign_Click(object sender, RoutedEventArgs e)
         {
-            if (_IsFirstFormFocused) { _FirstForm.Numerator *= -1; _FirstForm.RewriteResult(_FirstForm.Numerator, _FirstForm.Divider); }
-            if (_IsSecondFormFocused) { _SecondForm.Numerator *= -1; _SecondForm.RewriteResult(_SecondForm.Numerator, _SecondForm.Divider); }
+            if (_IsFirstFormFocused)
+            {
+                _FirstForm.Negative = !_FirstForm.Negative;
+                _FirstForm.RewriteResult(_FirstForm.Numerator, _FirstForm.Divider);
+            }
+            if (_IsSecondFormFocused)
+            {
+                _SecondForm.Negative = !_SecondForm.Negative;
+                _SecondForm.RewriteResult(_SecondForm.Numerator, _SecondForm.Divider);
+            }
         }
 
         private void _FirstForm_GotFocus(object sender, RoutedEventArgs e)
