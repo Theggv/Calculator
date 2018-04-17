@@ -159,6 +159,7 @@ namespace WpfApp3
 
         public void RewriteResult(long numerator, long divider)
         {
+            if (numerator == 0) { TextDivPart.Text = "0"; return; }
             // Сделать знаменатель положительным
             if ((numerator < 0 && divider < 0) || divider < 0)
             {

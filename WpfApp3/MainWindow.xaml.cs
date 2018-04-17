@@ -147,6 +147,8 @@ namespace WpfApp3
         {
             MainGrid.Children.Remove(_SecondForm);
             isBinaryOperation = false;
+            if (_IsFirstFormFocused) _FirstForm.RewriteResult(_FirstForm.Numerator, _FirstForm.Divider);
+            if (_IsSecondFormFocused) _SecondForm.RewriteResult(_SecondForm.Numerator, _SecondForm.Divider);
             _IsExp = false;
             _IsReduction = true;
             _IsChange = false;
