@@ -146,8 +146,18 @@ namespace WpfApp3
         private void Red_Click(object sender, RoutedEventArgs e)
         {
             isBinaryOperation = false;
-            if (_IsFirstFormFocused) _FirstForm.RewriteResult(_FirstForm.Numerator, _FirstForm.Divider);
-            if (_IsSecondFormFocused) _SecondForm.RewriteResult(_SecondForm.Numerator, _SecondForm.Divider);
+            if (_IsFirstFormFocused)
+            {
+                Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Numerator, _FirstForm.Divider);
+                A = Calculator.Reduction(A);
+                _FirstForm.RewriteResult(A.Numerator, A.Divider);
+            }
+            if (_IsSecondFormFocused)
+            {
+                Fraction A = new Fraction(_SecondForm.DivPart, _SecondForm.Numerator, _SecondForm.Divider);
+                A = Calculator.Reduction(A);
+                _FirstForm.RewriteResult(A.Numerator, A.Divider);
+            }
             _IsExp = false;
             _IsReduction = true;
             _IsChange = false;
