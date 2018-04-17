@@ -289,13 +289,23 @@ namespace WpfApp3
         {
             if (_IsFirstFormFocused)
             {
-                _FirstForm.Negative = !_FirstForm.Negative;
-                _FirstForm.RewriteResult(_FirstForm.Numerator, _FirstForm.Divider);
+                long num;
+                if (_FirstForm.DivPart >= 0)
+                    num = _FirstForm.Divider * _FirstForm.DivPart + _FirstForm.Numerator;
+                else
+                    num = _FirstForm.Divider * _FirstForm.DivPart - _FirstForm.Numerator;
+                num *= -1;
+                _FirstForm.RewriteResult(num, _FirstForm.Divider);
             }
             if (_IsSecondFormFocused)
             {
-                _SecondForm.Negative = !_SecondForm.Negative;
-                _SecondForm.RewriteResult(_SecondForm.Numerator, _SecondForm.Divider);
+                long num;
+                if (_SecondForm.DivPart >= 0)
+                    num = _SecondForm.Divider * _SecondForm.DivPart + _SecondForm.Numerator;
+                else
+                    num = _SecondForm.Divider * _SecondForm.DivPart - _SecondForm.Numerator;
+                num *= -1;
+                _SecondForm.RewriteResult(num, _SecondForm.Divider);
             }
         }
 
