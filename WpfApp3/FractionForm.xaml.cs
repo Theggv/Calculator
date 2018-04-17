@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace WpfApp3
 {
@@ -23,6 +24,8 @@ namespace WpfApp3
         private long _DivPart; // Целая часть
         private long _Numerator; // Числитель
         private long _Divider; // Знаменатель
+
+        private Regex rgx = new Regex(@"(?<!\S)\b\d*(?!\S)\b");
 
         private bool _IsNegative = false;
         private bool _IsReadOnly;
