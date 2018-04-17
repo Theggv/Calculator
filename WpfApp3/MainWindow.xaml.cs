@@ -55,6 +55,78 @@ namespace WpfApp3
                 textBox.Text += curNum.ToString();
                 textBox.SelectionStart = textBox.Text.Length;
             }
+            var curTextBox = (TextBox)focusedControl;
+
+            if (_IsFirstFormFocused)
+            {
+                if (curTextBox.Text == "-")
+                {
+                    if (curTextBox.Name == "TextDivPart")
+                        _FirstForm.Negative = true;
+                    return;
+                }
+
+                if (curTextBox.Text == "")
+                {
+                    if (curTextBox.Name == "TextDivPart")
+                    {
+                        _FirstForm.DivPart = 0;
+                        _FirstForm.Negative = false;
+                    }
+                    else if (curTextBox.Name == "TextNumerator")
+                        _FirstForm.Numerator = 0;
+                    else if (curTextBox.Name == "TextDivider")
+                        _FirstForm.Divider = 0;
+                }
+                else
+                {
+                    if (curTextBox.Name == "TextDivPart")
+                    {
+                        _FirstForm.DivPart = int.Parse(curTextBox.Text);
+                        _FirstForm.Negative = false;
+                    }
+                    else if (curTextBox.Name == "TextNumerator")
+                        _FirstForm.Numerator = int.Parse(curTextBox.Text);
+                    else if (curTextBox.Name == "TextDivider")
+                        _FirstForm.Divider = int.Parse(curTextBox.Text);
+                }
+            }
+
+            if (_IsSecondFormFocused)
+            {
+                if (curTextBox.Text == "-")
+                {
+                    if (curTextBox.Name == "TextDivPart")
+                        _SecondForm.Negative = true;
+                    return;
+                }
+
+                if (curTextBox.Text == "")
+                {
+                    if (curTextBox.Name == "TextDivPart")
+                    {
+                        _SecondForm.DivPart = 0;
+                        _SecondForm.Negative = false;
+                    }
+                    else if (curTextBox.Name == "TextNumerator")
+                        _SecondForm.Numerator = 0;
+                    else if (curTextBox.Name == "TextDivider")
+                        _SecondForm.Divider = 0;
+                }
+                else
+                {
+                    if (curTextBox.Name == "TextDivPart")
+                    {
+                        _SecondForm.DivPart = int.Parse(curTextBox.Text);
+                        _SecondForm.Negative = false;
+                    }
+                    else if (curTextBox.Name == "TextNumerator")
+                        _SecondForm.Numerator = int.Parse(curTextBox.Text);
+                    else if (curTextBox.Name == "TextDivider")
+                        _SecondForm.Divider = int.Parse(curTextBox.Text);
+                }
+
+            }
         }
 
         private void Reset_Click(object sender, RoutedEventArgs e)
