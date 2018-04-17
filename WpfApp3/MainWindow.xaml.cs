@@ -146,8 +146,18 @@ namespace WpfApp3
         private void Red_Click(object sender, RoutedEventArgs e)
         {
             isBinaryOperation = false;
-            if (_IsFirstFormFocused) _FirstForm.RewriteResult(_FirstForm.Numerator, _FirstForm.Divider);
-            if (_IsSecondFormFocused) _SecondForm.RewriteResult(_SecondForm.Numerator, _SecondForm.Divider);
+            if (_IsFirstFormFocused)
+            {
+                Fraction A = new Fraction(_FirstForm.DivPart, _FirstForm.Numerator, _FirstForm.Divider);
+                A = Calculator.Reduction(A);
+                _FirstForm.RewriteResult(A.Numerator, A.Divider);
+            }
+            if (_IsSecondFormFocused)
+            {
+                Fraction A = new Fraction(_SecondForm.DivPart, _SecondForm.Numerator, _SecondForm.Divider);
+                A = Calculator.Reduction(A);
+                _FirstForm.RewriteResult(A.Numerator, A.Divider);
+            }
             _IsExp = false;
             _IsReduction = true;
             _IsChange = false;
@@ -158,22 +168,12 @@ namespace WpfApp3
             isBinaryOperation = false;
             if (_IsFirstFormFocused)
             {
-                long num;
-                if (_FirstForm.DivPart >= 0)
-                    num = _FirstForm.Divider * _FirstForm.DivPart + _FirstForm.Numerator;
-                else
-                    num = _FirstForm.Divider * _FirstForm.DivPart - _FirstForm.Numerator;
-                _FirstForm.RewriteResult(_FirstForm.Divider, num);
+                _FirstForm.RewriteResult(_FirstForm.Divider, _FirstForm.GetFullNumerator);
             }
 
             if (_IsSecondFormFocused)
             {
-                long num;
-                if (_SecondForm.DivPart >= 0)
-                    num = _SecondForm.Divider * _SecondForm.DivPart + _SecondForm.Numerator;
-                else
-                    num = _SecondForm.Divider * _SecondForm.DivPart - _SecondForm.Numerator;
-                _SecondForm.RewriteResult(_SecondForm.Divider, num);
+                _SecondForm.RewriteResult(_SecondForm.Divider, _SecondForm.GetFullNumerator);
             }
             _IsExp = true;
             _IsReduction = false;
@@ -213,6 +213,18 @@ namespace WpfApp3
                     Calculator.Tool = Calculator.Tools.Divide;
                     isBinaryOperation = true;
                     break;
+            }
+
+            if (!_ResultForm.IsEmpty)
+            {
+                long num;
+                if (_ResultForm.DivPart < 0)
+                    num = _ResultForm.DivPart * _ResultForm.Divider - _ResultForm.Numerator;
+                else
+                    num = _ResultForm.DivPart * _ResultForm.Divider + _ResultForm.Numerator;
+
+                _FirstForm.RewriteResult(num, _ResultForm.Divider);
+                _ResultForm.Reset();
             }
         }
 
@@ -305,24 +317,12 @@ namespace WpfApp3
         private void ChangeSign_Click(object sender, RoutedEventArgs e)
         {
             if (_IsFirstFormFocused)
-            {
-                long num;
-                if (_FirstForm.DivPart >= 0)
-                    num = _FirstForm.Divider * _FirstForm.DivPart + _FirstForm.Numerator;
-                else
-                    num = _FirstForm.Divider * _FirstForm.DivPart - _FirstForm.Numerator;
-                num *= -1;
-                _FirstForm.RewriteResult(num, _FirstForm.Divider);
+            {                
+                _FirstForm.RewriteResult(_FirstForm.GetFullNumerator, _FirstForm.Divider);
             }
             if (_IsSecondFormFocused)
             {
-                long num;
-                if (_SecondForm.DivPart >= 0)
-                    num = _SecondForm.Divider * _SecondForm.DivPart + _SecondForm.Numerator;
-                else
-                    num = _SecondForm.Divider * _SecondForm.DivPart - _SecondForm.Numerator;
-                num *= -1;
-                _SecondForm.RewriteResult(num, _SecondForm.Divider);
+                _SecondForm.RewriteResult(_SecondForm.GetFullNumerator, _SecondForm.Divider);
             }
         }
 
